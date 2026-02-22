@@ -252,6 +252,11 @@ if { ![get_property "is_locked" $file_obj] } {
   set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
 }
 
+# Upgrade, generate and update compile order for IP
+upgrade_ip [get_ips clk_wiz_0]
+generate_target all [get_ips clk_wiz_0]
+update_compile_order -fileset sources_1
+
 
 # Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets -quiet constrs_1] ""]} {
