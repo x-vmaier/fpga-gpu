@@ -38,5 +38,4 @@ interface uart_io #(
         output tx_valid,
         output rx_ready
     );
-
 endinterface
