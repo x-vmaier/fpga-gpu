@@ -1,0 +1,22 @@
+# Vivado binary files
+*.bit       binary
+*.dcp       binary
+*.ltx       binary
+*.mcs       binary
+*.mem       binary
+
+# IP output archives
+*.zip       binary
+
+# Waveform databases
+*.wdb       binary
+
+# Normalize line endings (cross-platform)
+*.sv        text eol=lf
+*.svh       text eol=lf
+*.v         text eol=lf
+*.vhd       text eol=lf
+*.xdc       text eol=lf
+*.tcl       text eol=lf
+*.xci       text eol=lf
+*.bd        text eol=lf
