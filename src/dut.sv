@@ -57,7 +57,8 @@
 
     display_engine de0 (
         .clk  (clk_vga),
-        .rst_n(rst_n_clk_vga)
+        .rst_n(rst_n_clk_vga),
+        .*
     );
 
 endmodule
