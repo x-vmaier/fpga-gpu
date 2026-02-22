@@ -10,39 +10,39 @@
     output logic Hsync,
     output logic Vsync
 );
-
+    // Clocks & resets
     logic rst_n;
-    logic locked;  // MMCM
+    logic locked;  // MMCM lock indicator
     logic clk_vga;
-    logic [3:0] cg_clk;
+
+    // rst_n is asserted (low) until the MMCM reports lock
+    assign rst_n = locked;
 
     // Interfaces
     uart_io uart_if (
         .clk(CLK100MHZ),
         .*
     );
+
     vga_io vga_if (
         .clk(clk_vga),
         .*
     );
 
+    // Wire physical pins
     assign uart_if.rx = RsRx;
     assign RsTx = uart_if.tx;
 
-    // Modules
+    // Clock wizard (MMCM)
     clk_wiz_0 cw0 (
-        .resetn(rst_n),
+        .resetn(1'b1),
         .*
     );
+
     uart u_uart0 (.*);
 
-    clockgate cg0 (
-        .clk(clk_vga),
-        .*
-    );
     vga_controller vga0 (
         .clk(CLK100MHZ),
         .*
     );
-
 endmodule
