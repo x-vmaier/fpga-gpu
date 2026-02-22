@@ -1,5 +1,5 @@
 // UART send task
-task automatic uart_send_byte(input [7:0] data, input time baud_period, ref logic rx);
+task automatic uart_send_byte(input [7:0] data, input realtime baud_period, ref logic rx);
     // Start bit
     rx = 1'b0;
     #(baud_period);
