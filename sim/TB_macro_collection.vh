@@ -1,3 +1,10 @@
+// Clocking
+`define start_clock \
+    initial begin \
+        clk = 0; \
+        forever #5ns clk = ~clk; \
+    end \
+
 // Error variable declarations
 `define define_errorvariables \
     integer TB_error_count; \
