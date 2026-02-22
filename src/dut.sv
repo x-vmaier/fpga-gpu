@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 (* keep_hierarchy = "yes" *) module dut (
-    input logic CLK100MHZ,
+    input logic clk_osc,
     input logic RsRx,
     output logic RsTx,
     output logic [3:0] vgaRed,
@@ -11,37 +11,53 @@
     output logic Vsync
 );
     // Clocks & resets
-    logic rst_n;
-    logic locked;  // MMCM lock indicator
+    localparam int DOM_SYS = 1;
+    localparam int DOM_VGA = 0;
+
     logic clk_vga;
-
-    // Interfaces
-    uart_io uart_if (
-        .clk(CLK100MHZ),
-        .*
-    );
-
-    vga_io vga_if (
-        .clk(clk_vga),
-        .*
-    );
-
-    // Wire physical pins
-    assign uart_if.rx = RsRx;
-    assign RsTx = uart_if.tx;
+    logic [1:0] clk_arr;
+    logic [1:0] rst_arr;
+    logic rst_n_clk_osc;
+    logic rst_n_clk_vga;
+    logic pll_locked;
 
     // Clock wizard (MMCM)
     clk_wiz_0 cw0 (
-        .clk_in1 (CLK100MHz),
-        .resetn  (rst_n),
+        .clk_in1 (clk_osc),
+        .resetn  (1'b1),     // MMCM has its own POR on Xilinx 7-series
         .clk_out1(clk_vga),
-        .locked(locked)
+        .locked  (pll_locked)
     );
 
-    uart u_uart0 (.*);
+    // Global reset
+    assign clk_arr[DOM_SYS] = clk_osc;
+    assign clk_arr[DOM_VGA] = clk_vga;
 
-    vga_controller vga0 (
-        .clk(CLK100MHZ),
-        .*
+    global_reset gr0 (
+        .por_clk  (clk_osc),
+        .clk_in   (clk_arr),
+        .rst_n_out(rst_arr),
+        .enable   (pll_locked) // stall POR counter until clocks stable
     );
+
+    assign rst_n_clk_osc = rst_arr[DOM_SYS];
+    assign rst_n_clk_vga = rst_arr[DOM_VGA];
+
+    // UART interface
+    uart_io uart_if (
+        .clk  (clk_osc),
+        .rst_n(rst_n_clk_osc)
+    );
+
+    assign uart_if.rx = RsRx;
+    assign RsTx = uart_if.tx;
+
+    // Sub-blocks
+    uart u_uart0 (.uart_if(uart_if));
+
+    display_engine de0 (
+        .clk  (clk_vga),
+        .rst_n(rst_n_clk_vga)
+    );
+
 endmodule

@@ -45,9 +45,9 @@
                 $display("Info:  Time: %t ns \tTB_TEST_START \tSim-Mode: %s", $time, TB_sim_mode ? "true" : "false"); \
                 if (TB_sim_mode) begin \
                     $display("Info:  Time: %t ns \tReset device", $time); \
-                    force TB.dut0.rst_n = 0; \
+                    force TB.dut0.rst_arr = '0; \
                     #10ns; \
-                    force TB.dut0.rst_n = 1; \
+                    force TB.dut0.rst_arr = '1; \
                 end
 
 /*

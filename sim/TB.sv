@@ -14,7 +14,7 @@ module TB;
 
     // DUT Instance
     dut dut0 (
-        .CLK100MHZ(clk),
+        .clk_osc(clk),
         .*
     );
 

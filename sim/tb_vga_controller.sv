@@ -26,17 +26,17 @@ program tb_vga_controller();
         fork
             begin
                 // Check if Hsync remains high while Vsync is low
-                `Check(TB.dut0.vga0.Hsync == 1, ("Hsync turned low during vertical sync"))
+                `Check(TB.dut0.Hsync == 1, ("Hsync turned low during vertical sync"))
             end
             begin
                 // Check if Hcnt is 0 at the start of Vsync
-                `Check(TB.dut0.vga0.Hcnt == 0, ("Hcnt not 0 at Vsync start. Hcnt was: %0d", TB.dut0.vga0.Hcnt))
+                `Check(TB.dut0.Hcnt == 0, ("Hcnt not 0 at Vsync start. Hcnt was: %0d", TB.dut0.Hcnt))
             end
         join
 
     `TB_TEST_PART("Vertical counter after sync")
         `wait_for_posedge(TB.dut0.Vsync, 100us)
-        `Check(TB.dut0.vga0.Vcnt == TB.dut0.vga0.V_SYNC, ("Vcnt not at V_SYNC after first sync. Vcnt was: %0d", TB.dut0.vga0.Vcnt))
+        `Check(TB.dut0.de0.vga0.Vcnt == TB.dut0.vga0.V_SYNC, ("Vcnt not at V_SYNC after first sync. Vcnt was: %0d", TB.dut0.de0.vga0.Vcnt))
 
     `TB_TEST_END(34ms)
 endprogram
