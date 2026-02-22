@@ -26,11 +26,10 @@
 
 /*
  * TB_TEST_START
- * Opens the initial block, resets DUT for 10ns if sim_mode=1.
+ * Opens the initial block and waits for PLL to lock in.
  *
  * Params:
  *     title:    Name of the test
- *     sim_mode: 1 = reset DUT, 0 = skip reset
  *
  * Note: Must be closed with TB_TEST_END
  */
@@ -43,12 +42,8 @@
                 TB_sim_mode = sim_mode; \
                 $display("\n========================================== %s ==========================================", title); \
                 $display("Info:  Time: %t ns \tTB_TEST_START \tSim-Mode: %s", $time, TB_sim_mode ? "true" : "false"); \
-                if (TB_sim_mode) begin \
-                    $display("Info:  Time: %t ns \tReset device", $time); \
-                    force TB.dut0.rst_arr = '0; \
-                    #10ns; \
-                    force TB.dut0.rst_arr = '1; \
-                end
+                `wait_for_posedge(TB.dut0.pll_locked, 10us) \
+                $display("Info:  Time: %t ns \tPLL locked in successfully", $time); \
 
 /*
  * TB_TEST_PART
@@ -71,9 +66,6 @@
  * Note: Must follow TB_TEST_START
  */
 `define TB_TEST_END(sim_timeout) \
-                if (TB_sim_mode) begin \
-                    release TB.dut0.rst_n; \
-                end \
                 $display("Info:  Time: %t ns \tTest completed with %0d errors and %0d assertions", $time, TB_error_count, TB_assert_count); \
                 $display("=============================================================================================="); \
                 if (TB_error_count > 0) begin \
