@@ -22,8 +22,8 @@
     localparam H_TOTAL = H_SYNC + H_BP + H_ACTIVE + H_FP;
     localparam V_TOTAL = V_SYNC + V_BP + V_ACTIVE + V_FP;
 
-    logic [9:0] Hcnt;
-    logic [9:0] Vcnt;
+    logic [$clog2(H_TOTAL)-1:0] Hcnt;
+    logic [$clog2(V_TOTAL)-1:0] Vcnt;
     logic display_active;
 
     // Counter
@@ -41,8 +41,8 @@
         end
     end
 
-    assign Hsync = ~((Hcnt >= H_FP && Hcnt < H_FP + H_SYNC) || Vcnt < (V_SYNC + V_BP));
-    assign Vsync = ~(Vcnt >= V_FP && Vcnt < V_FP + V_SYNC);
+    assign Hsync = ~(Hcnt >= H_ACTIVE + H_FP && Hcnt < H_ACTIVE + H_FP + H_SYNC);
+    assign Vsync = ~(Vcnt >= V_ACTIVE + V_FP && Vcnt < V_ACTIVE + V_FP + V_SYNC);
 
     assign display_active = (Hcnt >= (H_SYNC + H_BP)) && (Hcnt < (H_SYNC + H_BP + H_ACTIVE)) &&
                             (Vcnt >= (V_SYNC + V_BP)) && (Vcnt < (V_SYNC + V_BP + V_ACTIVE));
@@ -56,6 +56,7 @@
         end else begin
             vgaRed   <= display_active ? Hcnt[5:2] : 4'h0;
             vgaGreen <= display_active ? Vcnt[5:2] : 4'h0;
+            vgaBlue  <= '1;
         end
     end
 
