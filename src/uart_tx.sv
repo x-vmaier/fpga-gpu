@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module uart_tx #(
+(* keep_hierarchy = "yes" *) module uart_tx #(
     parameter int DATA_BITS   = 8,
     parameter int STOP_BITS   = 1,
     parameter int PARITY_BITS = 0

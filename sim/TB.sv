@@ -2,7 +2,7 @@
 
 `include "TB_macro_collection.vh"
 
-module TB ();
+module TB;
     logic clk;
     logic RsRx;
     logic RsTx;

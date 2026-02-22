@@ -1,6 +1,5 @@
 `timescale 1ns / 1ps
 
-
 (* keep_hierarchy = "yes" *) module vga_controller #(
     parameter H_ACTIVE = 640,
     parameter H_FP = 16,
