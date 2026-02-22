@@ -4,6 +4,9 @@ interface vga_io #(
     parameter int R_BITS = 4,
     parameter int G_BITS = 4,
     parameter int B_BITS = 4
+) (
+    input logic clk,
+    input logic rst_n
 );
     logic Hsync;
     logic Vsync;
