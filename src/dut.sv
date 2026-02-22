@@ -15,9 +15,6 @@
     logic locked;  // MMCM lock indicator
     logic clk_vga;
 
-    // rst_n is asserted (low) until the MMCM reports lock
-    assign rst_n = locked;
-
     // Interfaces
     uart_io uart_if (
         .clk(CLK100MHZ),
@@ -35,8 +32,10 @@
 
     // Clock wizard (MMCM)
     clk_wiz_0 cw0 (
-        .resetn(1'b1),
-        .*
+        .clk_in1 (CLK100MHz),
+        .resetn  (rst_n),
+        .clk_out1(clk_vga),
+        .locked(locked)
     );
 
     uart u_uart0 (.*);
