@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TB_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TB" />
+            <top_module name="\$unit_dut_sv_1487850379 " />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="3,417.807383 us"></ZoomStartTime>
+      <ZoomEndTime time="4,471.645724 us"></ZoomEndTime>
+      <Cursor1Time time="4,296.006000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="340"></NameColumnWidth>
+      <ValueColumnWidth column_width="150"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="3" />
+   <wvobject fp_name="/TB/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="group20" type="group">
+      <obj_property name="label">uart</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TB/RsRx" type="logic">
+         <obj_property name="ElementShortName">RsRx</obj_property>
+         <obj_property name="ObjectShortName">RsRx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/RsTx" type="logic">
+         <obj_property name="ElementShortName">RsTx</obj_property>
+         <obj_property name="ObjectShortName">RsTx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/tx" type="logic">
+         <obj_property name="ElementShortName">tx</obj_property>
+         <obj_property name="ObjectShortName">tx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/rx" type="logic">
+         <obj_property name="ElementShortName">rx</obj_property>
+         <obj_property name="ObjectShortName">rx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/tx_valid" type="logic">
+         <obj_property name="ElementShortName">tx_valid</obj_property>
+         <obj_property name="ObjectShortName">tx_valid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/tx_ready" type="logic">
+         <obj_property name="ElementShortName">tx_ready</obj_property>
+         <obj_property name="ObjectShortName">tx_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/rx_valid" type="logic">
+         <obj_property name="ElementShortName">rx_valid</obj_property>
+         <obj_property name="ObjectShortName">rx_valid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/rx_ready" type="logic">
+         <obj_property name="ElementShortName">rx_ready</obj_property>
+         <obj_property name="ObjectShortName">rx_ready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/tx_data" type="array">
+         <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/uart_if/rx_data" type="array">
+         <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group21" type="group">
+      <obj_property name="label">vga</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TB/dut0/cw0/clk_vga" type="logic">
+         <obj_property name="ElementShortName">clk_vga</obj_property>
+         <obj_property name="ObjectShortName">clk_vga</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/Hsync" type="logic">
+         <obj_property name="ElementShortName">Hsync</obj_property>
+         <obj_property name="ObjectShortName">Hsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/Vsync" type="logic">
+         <obj_property name="ElementShortName">Vsync</obj_property>
+         <obj_property name="ObjectShortName">Vsync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/vgaRed" type="array">
+         <obj_property name="ElementShortName">vgaRed[3:0]</obj_property>
+         <obj_property name="ObjectShortName">vgaRed[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/vgaGreen" type="array">
+         <obj_property name="ElementShortName">vgaGreen[3:0]</obj_property>
+         <obj_property name="ObjectShortName">vgaGreen[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/vgaBlue" type="array">
+         <obj_property name="ElementShortName">vgaBlue[3:0]</obj_property>
+         <obj_property name="ObjectShortName">vgaBlue[3:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
