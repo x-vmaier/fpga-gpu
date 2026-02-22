@@ -51,17 +51,14 @@
 
 /*
  * TB_TEST_END
- * Closes the initial
-   block opened by TB_TEST_START.
-    * Runs a parallel timeout thread.
-    *
-  * Params:
-  *     sim_timeout:
-    Max simulation time (e.g. 18ms). Use 0 to disable.
-    *
-  * Note:
-    Must follow TB_TEST_START
-    */
+ * Closes the initial block opened by TB_TEST_START.
+ * Runs a parallel timeout thread.
+ *
+ * Params:
+ *     sim_timeout: Max simulation time (e.g. 18ms). Use 0 to disable.
+ *
+ * Note: Must follow TB_TEST_START
+ */
 `define TB_TEST_END(sim_timeout) \
                 if (TB_sim_mode) begin \
                     release TB.dut0.rst_n; \
@@ -85,13 +82,13 @@
     end
 
 /*
-     * wait_for_posedge
-     * Waits for posedge of signal. Stops simulation on timeout.
-     *
-     * Params:
-     *     clk:     Signal to wait on
-     *     timeout: Max wait time (e.g. 10us)
-     */
+ * wait_for_posedge
+ * Waits for posedge of signal. Stops simulation on timeout.
+ *
+ * Params:
+ *     clk:     Signal to wait on
+ *     timeout: Max wait time (e.g. 10us)
+ */
 `define wait_for_posedge(clk, timeout) \
     fork begin \
         fork \
@@ -108,13 +105,13 @@
     end join
 
 /*
-     * wait_for_negedge
-     * Waits for negedge of signal. Stops simulation on timeout.
-     *
-     * Params:
-     *     clk:     Signal to wait on
-     *     timeout: Max wait time (e.g. 10us)
-     */
+ * wait_for_negedge
+ * Waits for negedge of signal. Stops simulation on timeout.
+ *
+ * Params:
+ *     clk:     Signal to wait on
+ *     timeout: Max wait time (e.g. 10us)
+ */
 `define wait_for_negedge(clk, timeout) \
     fork begin \
         fork \
@@ -131,13 +128,13 @@
     end join
 
 /*
-     * Check
-     * Immediate assertion with error counting and event trigger.
-     *
-     * Params:
-     *     compare: Expression to assert
-     *     message: Format string in double parens, e.g. ("val=%0d", x)
-     */
+ * Check
+ * Immediate assertion with error counting and event trigger.
+ *
+ * Params:
+ *     compare: Expression to assert
+ *     message: Format string in double parens, e.g. ("val=%0d", x)
+ */
 `define Check(compare, message) \
     begin \
         TB_assert_count++; \
@@ -149,15 +146,15 @@
     end
 
 /*
-     * Check_blur
-     * Checks if |param1 - param2| <= blur.
-     *
-     * Params:
-     *     param1:  Measured value
-     *     param2:  Expected value
-     *     blur:    Tolerance
-     *     message: Format string in double parens, e.g. ("got=%0t", x)
-     */
+ * Check_blur
+ * Checks if |param1 - param2| <= blur.
+ *
+ * Params:
+ *     param1:  Measured value
+ *     param2:  Expected value
+ *     blur:    Tolerance
+ *     message: Format string in double parens, e.g. ("got=%0t", x)
+ */
 `define Check_blur(param1, param2, blur, message) \
     begin \
         TB_assert_count++; \
