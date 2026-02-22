@@ -4,6 +4,10 @@
         clk = 0; \
         forever #5ns clk = ~clk; \
     end \
+    
+// Flow
+`define reset_uart \
+    TB.RsRx = 1; \
 
 // Error variable declarations
 `define define_errorvariables \

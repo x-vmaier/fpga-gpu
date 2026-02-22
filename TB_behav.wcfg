@@ -6,19 +6,19 @@
       <db_ref path="TB_behav.wdb" id="1">
          <top_modules>
             <top_module name="TB" />
-            <top_module name="\$unit_dut_sv_1487850379 " />
+            <top_module name="\$unit_baud_gen_sv_861171107 " />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3,417.807383 us"></ZoomStartTime>
-      <ZoomEndTime time="4,471.645724 us"></ZoomEndTime>
-      <Cursor1Time time="4,296.006000 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="4,296.006000 us"></ZoomEndTime>
+      <Cursor1Time time="865.227661 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="150"></ValueColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="3" />
    <wvobject fp_name="/TB/clk" type="logic">
@@ -29,14 +29,6 @@
       <obj_property name="label">uart</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/TB/RsRx" type="logic">
-         <obj_property name="ElementShortName">RsRx</obj_property>
-         <obj_property name="ObjectShortName">RsRx</obj_property>
-      </wvobject>
-      <wvobject fp_name="/TB/RsTx" type="logic">
-         <obj_property name="ElementShortName">RsTx</obj_property>
-         <obj_property name="ObjectShortName">RsTx</obj_property>
-      </wvobject>
       <wvobject fp_name="/TB/dut0/uart_if/tx" type="logic">
          <obj_property name="ElementShortName">tx</obj_property>
          <obj_property name="ObjectShortName">tx</obj_property>
@@ -69,12 +61,20 @@
          <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
       </wvobject>
+      <wvobject fp_name="/TB/dut0/u_uart0/baud_tick" type="logic">
+         <obj_property name="ElementShortName">baud_tick</obj_property>
+         <obj_property name="ObjectShortName">baud_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/dut0/u_uart0/baud16_tick" type="logic">
+         <obj_property name="ElementShortName">baud16_tick</obj_property>
+         <obj_property name="ObjectShortName">baud16_tick</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="group21" type="group">
       <obj_property name="label">vga</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/TB/dut0/cw0/clk_vga" type="logic">
+      <wvobject fp_name="/TB/dut0/clk_vga" type="logic">
          <obj_property name="ElementShortName">clk_vga</obj_property>
          <obj_property name="ObjectShortName">clk_vga</obj_property>
       </wvobject>
