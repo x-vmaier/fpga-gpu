@@ -26,7 +26,7 @@
 
     state_t state;
     logic [3:0] pulse_cnt;  // 0..15 within each bit window
-    logic [$clog2(DATA_BITS):0] bit_cnt;  // how many data bits received
+    logic [$clog2(DATA_BITS):0] bit_cnt;  // How many data bits received
     logic [DATA_BITS-1:0] shift_reg;
 
     assign ready = 1'b1;
@@ -40,14 +40,14 @@
             shift_reg <= '0;
             valid     <= 1'b0;
         end else begin
-            valid <= 1'b0;  // default: deassert each cycle
+            valid <= 1'b0;  // Deassert each cycle
 
             if (baud_tick) begin
                 case (state)
                     IDLE: begin
                         pulse_cnt <= '0;
                         bit_cnt   <= '0;
-                        if (!rx)  // falling edge -> start bit detected
+                        if (!rx)  // Falling edge -> start bit detected
                             state <= START;
                     end
 
@@ -60,7 +60,7 @@
                                 pulse_cnt <= '0;
                                 state     <= DATA;
                             end else begin
-                                // Glitch – abort
+                                // Glitch - abort
                                 pulse_cnt <= '0;
                                 state     <= IDLE;
                             end
