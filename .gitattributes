@@ -1,22 +1,24 @@
-# Vivado binary files
-*.bit       binary
-*.dcp       binary
-*.ltx       binary
-*.mcs       binary
-*.mem       binary
+# Normalize text files automatically
+* text=auto
 
-# IP output archives
-*.zip       binary
+# Vivado binary outputs
+*.bit   -text
+*.dcp   -text
+*.ltx   -text
+*.mcs   -text
+*.mem   -text
+*.wdb   -text
+*.zip   -text
 
-# Waveform databases
-*.wdb       binary
+# HDL / source files (force LF)
+*.sv    text eol=lf
+*.svh   text eol=lf
+*.v     text eol=lf
+*.vhd   text eol=lf
+*.xdc   text eol=lf
+*.tcl   text eol=lf
+*.xci   text eol=lf
+*.bd    text eol=lf
 
-# Normalize line endings (cross-platform)
-*.sv        text eol=lf
-*.svh       text eol=lf
-*.v         text eol=lf
-*.vhd       text eol=lf
-*.xdc       text eol=lf
-*.tcl       text eol=lf
-*.xci       text eol=lf
-*.bd        text eol=lf
+# GitHub Linguist
+fpga-gpu.tcl linguist-vendored
