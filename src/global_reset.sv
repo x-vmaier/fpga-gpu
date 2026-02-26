@@ -10,8 +10,8 @@ module global_reset #(
     output logic [NUM_DOMAINS-1:0] rst_n_out
 );
     // POR counter
-    (* ASYNC_REG = "TRUE" *) logic rst_n = 1'b0;
-    logic [3:0] por_cnt = '0;
+    (* ASYNC_REG = "TRUE" *) logic rst_n;
+    logic [3:0] por_cnt;
 
     always_ff @(posedge por_clk) begin
         if (!enable) begin
