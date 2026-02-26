@@ -4,6 +4,7 @@
 
 module TB;
     logic clk;
+    logic [15:0] sw;
     logic RsRx;
     logic RsTx;
     logic Hsync;
@@ -11,6 +12,10 @@ module TB;
     logic [3:0] vgaRed;
     logic [3:0] vgaGreen;
     logic [3:0] vgaBlue;
+    logic [15:0] LED;
+    logic [6:0] seg;
+    logic [3:0] an;
+    logic dp;
 
     // DUT Instance
     dut dut0 (

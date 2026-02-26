@@ -2,13 +2,18 @@
 
 (* keep_hierarchy = "yes" *) module dut (
     input logic clk_osc,
+    input logic [15:0] sw,
     input logic RsRx,
     output logic RsTx,
+    output logic Hsync,
+    output logic Vsync,
     output logic [3:0] vgaRed,
     output logic [3:0] vgaGreen,
     output logic [3:0] vgaBlue,
-    output logic Hsync,
-    output logic Vsync
+    output logic [15:0] LED,
+    output logic [6:0] seg,
+    output logic [3:0] an,
+    output logic dp
 );
     // Clocks & resets
     localparam int DOM_SYS = 1;
@@ -20,6 +25,13 @@
     logic rst_n_clk_osc;
     logic rst_n_clk_vga;
     logic pll_locked;
+
+    logic [15:0] segment_data_in;
+    logic [3:0] segment_point_in;
+
+    assign segment_data_in = 16'hC0DE;
+    assign segment_point_in = '0;
+    assign LED = sw;
 
     // Clock wizard (MMCM)
     clk_wiz_0 cw0 (
@@ -54,6 +66,12 @@
 
     // Sub-blocks
     uart u_uart0 (.uart_if(uart_if));
+
+    seven_segment_translator sst0 (
+        .clk  (clk_osc),
+        .rst_n(rst_n_clk_osc),
+        .*
+    );
 
     display_engine de0 (
         .clk  (clk_vga),
