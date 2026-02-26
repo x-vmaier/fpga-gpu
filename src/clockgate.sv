@@ -13,7 +13,7 @@
         if (!rst_n) begin
             cg_clk_cnt <= '0;
         end else begin
-            cg_clk_cnt <= cg_clk_cnt + 1;
+            cg_clk_cnt <= cg_clk_cnt + 1'b1;
         end
     end
 

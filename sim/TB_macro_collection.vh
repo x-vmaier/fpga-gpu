@@ -1,13 +1,13 @@
 // Clocking
 `define start_clock \
     initial begin \
-        clk = 0; \
+        clk = 1'b0; \
         forever #5ns clk = ~clk; \
     end \
     
 // Flow
 `define reset_uart \
-    TB.RsRx = 1; \
+    TB.RsRx = 1'b1; \
 
 // Error variable declarations
 `define define_errorvariables \

@@ -34,7 +34,7 @@
             baud_tick <= '0;
         end else begin
             baud_tick <= baud16_tick && (baud_cnt == 4'd14);
-            if (baud16_tick) baud_cnt <= baud_cnt + 1;
+            if (baud16_tick) baud_cnt <= baud_cnt + 1'b1;
         end
     end
 endmodule

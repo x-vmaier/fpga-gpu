@@ -13,9 +13,7 @@
     output logic ready,
     output logic tx
 );
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            tx <= 0;
-        end
-    end
+    assign tx = 1'b1;
+    assign ready = 1'b0;
+    assign valid = 1'b0;
 endmodule
