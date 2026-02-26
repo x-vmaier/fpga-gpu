@@ -6,21 +6,24 @@
       <db_ref path="TB_behav.wdb" id="1">
          <top_modules>
             <top_module name="TB" />
-            <top_module name="\$unit_baud_gen_sv_4268922980 " />
+            <top_module name="\$unit_upscaler2x_sv_501934293 " />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="37.925875 us"></ZoomEndTime>
-      <Cursor1Time time="7.195169 us"></Cursor1Time>
+      <ZoomEndTime time="1,092.265170 us"></ZoomEndTime>
+      <Cursor1Time time="1,092.265169 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="3" />
+   <wave_markers>
+      <marker time="32326664828" label="" />
+   </wave_markers>
    <wvobject fp_name="group20" type="group">
       <obj_property name="label">uart</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -86,6 +89,10 @@
          <obj_property name="ElementShortName">clk_vga</obj_property>
          <obj_property name="ObjectShortName">clk_vga</obj_property>
       </wvobject>
+      <wvobject fp_name="/TB/dut0/de0/vga0/display_active" type="logic">
+         <obj_property name="ElementShortName">display_active</obj_property>
+         <obj_property name="ObjectShortName">display_active</obj_property>
+      </wvobject>
       <wvobject fp_name="/TB/Hsync" type="logic">
          <obj_property name="ElementShortName">Hsync</obj_property>
          <obj_property name="ObjectShortName">Hsync</obj_property>
@@ -97,10 +104,12 @@
       <wvobject fp_name="/TB/dut0/de0/vga0/Hcnt" type="array">
          <obj_property name="ElementShortName">Hcnt[9:0]</obj_property>
          <obj_property name="ObjectShortName">Hcnt[9:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/TB/dut0/de0/vga0/Vcnt" type="array">
          <obj_property name="ElementShortName">Vcnt[9:0]</obj_property>
          <obj_property name="ObjectShortName">Vcnt[9:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/TB/vgaRed" type="array">
          <obj_property name="ElementShortName">vgaRed[3:0]</obj_property>
