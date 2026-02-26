@@ -1,26 +1,30 @@
 `timescale 1ns / 1ps
 
-(* keep_hierarchy = "yes" *) module clockgate (
+(* keep_hierarchy = "yes" *) module clockgate #(
+    parameter int GATES = 4
+) (
     input logic clk,
     input logic rst_n,
-    output logic [3:0] cg_clk
+    output logic [GATES-1:0] cg_clk
 );
+    logic [GATES-2:0] cnt;
 
-    logic [2:0] cg_clk_cnt;
-
-    // Clock Gating
+    // Counter
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            cg_clk_cnt <= '0;
+            cnt <= '0;
         end else begin
-            cg_clk_cnt <= cg_clk_cnt + 1'b1;
+            cnt <= cnt + 1'b1;
         end
     end
 
-    assign cg_clk = {
-        &cg_clk_cnt[2:0],
-        &cg_clk_cnt[1:0],
-        cg_clk_cnt[0],
-        1'b1
-    };
+    assign cg_clk[0] = 1'b1;
+
+    generate
+        // Reduction AND over a slice
+        for (genvar k = 1; k < GATES; k++) begin : gen_gate
+            assign cg_clk[k] = &cnt[k-1:0];
+        end
+    endgenerate
+
 endmodule
