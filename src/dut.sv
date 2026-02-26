@@ -29,7 +29,6 @@
     logic [15:0] segment_data_in;
     logic [3:0] segment_point_in;
 
-    assign segment_data_in = 16'hC0DE;
     assign segment_point_in = '0;
     assign LED = sw;
 
@@ -63,6 +62,8 @@
 
     assign uart_if.rx = RsRx;
     assign RsTx = uart_if.tx;
+    
+    assign segment_data_in = {4'b0000, 4'b0000, uart_if.rx_data[7:4], uart_if.rx_data[3:0]};
 
     // Sub-blocks
     uart u_uart0 (.uart_if(uart_if));
