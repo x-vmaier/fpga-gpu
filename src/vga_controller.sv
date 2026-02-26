@@ -44,8 +44,8 @@
     assign Hsync = ~(Hcnt >= H_ACTIVE + H_FP && Hcnt < H_ACTIVE + H_FP + H_SYNC);
     assign Vsync = ~(Vcnt >= V_ACTIVE + V_FP && Vcnt < V_ACTIVE + V_FP + V_SYNC);
 
-    assign display_active = (Hcnt >= (H_SYNC + H_BP)) && (Hcnt < (H_SYNC + H_BP + H_ACTIVE)) &&
-                            (Vcnt >= (V_SYNC + V_BP)) && (Vcnt < (V_SYNC + V_BP + V_ACTIVE));
+    assign display_active = (Hcnt >= H_SYNC + H_BP && Hcnt < H_SYNC + H_BP + H_ACTIVE) &&
+                            (Vcnt >= V_SYNC + V_BP && Vcnt < V_SYNC + V_BP + V_ACTIVE);
 
     // Display
     always_ff @(posedge clk or negedge rst_n) begin
@@ -54,9 +54,10 @@
             vgaGreen <= 4'h0;
             vgaBlue  <= 4'h0;
         end else begin
-            vgaRed   <= display_active ? Hcnt[5:2] : 4'h0;
-            vgaGreen <= display_active ? Vcnt[5:2] : 4'h0;
-            vgaBlue  <= '1;
+            // Draw color to screen
+            vgaRed   <= 4'h0;
+            vgaGreen <= 4'hF;
+            vgaBlue  <= 4'hF;
         end
     end
 
