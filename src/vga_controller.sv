@@ -59,8 +59,8 @@
         end else begin
             x_dest <= display_active ? Hcnt - (H_SYNC + H_BP) : '0;
             y_dest <= display_active ? Vcnt - (V_SYNC + V_BP) : '0;
-            Hsync_r <= ~(Hcnt >= H_ACTIVE + H_FP && Hcnt < H_ACTIVE + H_FP + H_SYNC);
-            Vsync_r <= ~(Vcnt >= V_ACTIVE + V_FP && Vcnt < V_ACTIVE + V_FP + V_SYNC);
+            Hsync_r <= ~(Hcnt < H_SYNC);
+            Vsync_r <= ~(Vcnt < V_SYNC);
             display_active_r <= display_active;
         end
     end
