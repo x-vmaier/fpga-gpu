@@ -10,22 +10,24 @@
     output logic baud_tick,
     output logic baud16_tick
 );
-
     // Step = round( BAUD_RATE * 16 * 2^FRAC_BITS / CLK_FREQ )
     localparam longint STEP = (longint'(BAUD_RATE) * 16 * (longint'(1) << FRAC_BITS) + CLK_FREQ / 2) / CLK_FREQ;
 
     logic [FRAC_BITS-1:0] acc;
-    logic [FRAC_BITS : 0] acc_next;  // one extra bit catches the carry
+    logic [  FRAC_BITS:0] acc_next;  // One extra bit for carry
 
-    assign acc_next    = {1'b0, acc} + FRAC_BITS'(STEP[FRAC_BITS-1:0]);
-    assign baud16_tick = acc_next[FRAC_BITS];  // carry bit
+    assign acc_next = {1'b0, acc} + FRAC_BITS'(STEP[FRAC_BITS-1:0]);
+    assign baud16_tick = acc_next[FRAC_BITS];  // Carry bit
 
     always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) acc <= '0;
-        else acc <= acc_next[FRAC_BITS-1:0];
+        if (!rst_n) begin
+            acc <= '0;
+        end else begin
+            acc <= acc_next[FRAC_BITS-1:0];
+        end
     end
 
-    // 1x baud tick
+    // Baud tick
     logic [3:0] baud_cnt;
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -34,7 +36,9 @@
             baud_tick <= '0;
         end else begin
             baud_tick <= baud16_tick && (baud_cnt == 4'd14);
-            if (baud16_tick) baud_cnt <= baud_cnt + 1'b1;
+            if (baud16_tick) begin
+                baud_cnt <= baud_cnt + 1'b1;
+            end
         end
     end
 endmodule

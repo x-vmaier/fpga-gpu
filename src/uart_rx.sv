@@ -1,22 +1,19 @@
 `timescale 1ns / 1ps
 
 (* keep_hierarchy = "yes" *) module uart_rx #(
-    parameter int DATA_BITS   = 8,
-    parameter int STOP_BITS   = 1,
-    parameter int PARITY_BITS = 0
+    parameter int DATA_BITS     = 8,
+    parameter int STOP_BITS     = 1,
+    parameter int PARITY_BITS   = 0,
+    parameter int TICKS_PER_BIT = 16,
+    parameter int SAMPLE_POINT  = 7
 ) (
     input logic clk,
     input logic rst_n,
     input logic baud_tick,
     input logic rx,
     output logic valid,
-    output logic ready,
     output logic [DATA_BITS-1:0] data_out
 );
-    // Sample at the center of each bit period
-    localparam int HALF_BIT = 7;
-    localparam int FULL_BIT = 15;
-
     typedef enum logic [1:0] {
         IDLE  = 2'b00,
         START = 2'b01,
@@ -25,11 +22,10 @@
     } state_t;
 
     state_t state;
-    logic [3:0] pulse_cnt;  // 0..15 within each bit window
-    logic [$clog2(DATA_BITS):0] bit_cnt;  // How many data bits received
+    logic [$clog2(TICKS_PER_BIT)-1:0] pulse_cnt;
+    logic [$clog2(DATA_BITS):0] bit_cnt;
     logic [DATA_BITS-1:0] shift_reg;
 
-    assign ready = 1'b1;
     assign data_out = shift_reg;
 
     always_ff @(posedge clk or negedge rst_n) begin
@@ -47,35 +43,40 @@
                     IDLE: begin
                         pulse_cnt <= '0;
                         bit_cnt   <= '0;
-                        if (!rx)  // Falling edge -> start bit detected
+
+                        // Falling edge translates to start bit
+                        if (!rx) begin
                             state <= START;
+                        end
                     end
 
-                    // Verify start bit is still low at the centre (tick 7)
-                    // If the line went high it was a glitch; return to IDLE
                     START: begin
-                        if (pulse_cnt == HALF_BIT[3:0]) begin
+                        // Sample at the center of each bit period
+                        if (pulse_cnt == SAMPLE_POINT) begin
+                            // Verify start bit is still low at bit center
                             if (!rx) begin
-                                // Confirmed start bit; reset counter for data
-                                pulse_cnt <= '0;
+                                // Confirmed start bit
+                                pulse_cnt <= '0;  // Reset counter for data
                                 state     <= DATA;
                             end else begin
-                                // Glitch - abort
+                                // Glitch happened if line went back high
                                 pulse_cnt <= '0;
-                                state     <= IDLE;
+                                state     <= IDLE;  // Return to IDLE
                             end
                         end else begin
                             pulse_cnt <= pulse_cnt + 1'b1;
                         end
                     end
 
-                    // Sample each data bit at the centre of its 16-tick window
                     DATA: begin
-                        if (pulse_cnt == FULL_BIT[3:0]) begin
+                        // Sample each data bit at the sample point
+                        if (pulse_cnt == TICKS_PER_BIT - 1) begin
                             pulse_cnt <= '0;
+
                             // Shift in LSB-first
                             shift_reg <= {rx, shift_reg[DATA_BITS-1:1]};
                             if (bit_cnt == DATA_BITS - 1) begin
+                                // All data bits are read
                                 bit_cnt <= '0;
                                 state   <= STOP;
                             end else begin
@@ -86,9 +87,9 @@
                         end
                     end
 
-                    // Wait for stop bit(s); assert valid on the centre sample
                     STOP: begin
-                        if (pulse_cnt == HALF_BIT[3:0]) begin
+                        // Wait for stop bit(s)
+                        if (pulse_cnt == SAMPLE_POINT) begin
                             valid     <= 1'b1;  // data_out is stable here
                             pulse_cnt <= '0;
                             state     <= IDLE;

@@ -8,8 +8,9 @@ interface uart_io #(
 );
     logic tx;
     logic rx;
-    logic tx_valid, tx_ready;
-    logic rx_valid, rx_ready;
+    logic tx_valid;
+    logic tx_ready;
+    logic rx_valid;
     logic [DATA_BITS-1:0] tx_data;
     logic [DATA_BITS-1:0] rx_data;
 
@@ -19,7 +20,6 @@ interface uart_io #(
         input rst_n,
         input tx_data,
         input tx_valid,
-        input rx_ready,
         input rx,
         output tx,
         output tx_ready,
@@ -35,7 +35,6 @@ interface uart_io #(
         input rx_valid,
         input tx_ready,
         output tx_data,
-        output tx_valid,
-        output rx_ready
+        output tx_valid
     );
 endinterface

@@ -79,5 +79,4 @@
         .rst_n(rst_n_clk_vga),
         .*
     );
-
 endmodule

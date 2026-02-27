@@ -46,7 +46,6 @@ module uart #(
         .baud_tick(baud16_tick),
         .rx       (uart_if.rx),
         .data_out (uart_if.rx_data),
-        .valid    (uart_if.rx_valid),
-        .ready    (uart_if.rx_ready)
+        .valid    (uart_if.rx_valid)
     );
 endmodule
