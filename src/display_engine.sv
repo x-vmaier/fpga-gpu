@@ -13,17 +13,20 @@
     output logic Vsync
 );
     logic [11:0] pixel_data;
+    logic [$clog2((H_ACTIVE/2)*(V_ACTIVE/2))-1:0] addr;
     logic [$clog2(H_ACTIVE)-1:0] x_dest;
     logic [$clog2(V_ACTIVE)-1:0] y_dest;
-    logic [11:0] frame_mem[0:320*240-1];
 
-    initial $readmemh("image.hex", frame_mem);
+    blk_mem_gen_0 framebuffer_rom_0 (
+        .clka (clk),
+        .addra(addr),
+        .douta(pixel_data)
+    );
 
     upscaler2x #(
         .H_OUT(H_ACTIVE),
         .V_OUT(V_ACTIVE)
     ) up2x0 (
-        .frame_mem(frame_mem),
         .*
     );
 
