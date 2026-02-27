@@ -26,5 +26,4 @@
             assign cg_clk[k] = &cnt[k-1:0];
         end
     endgenerate
-
 endmodule

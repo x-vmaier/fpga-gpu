@@ -11,7 +11,6 @@
     output logic [3:0] an,
     output logic dp
 );
-
     // Refresh counter
     logic [REFRESH_BITS-1:0] refresh_cnt;
 
@@ -64,5 +63,4 @@
     end
 
     assign seg = ~seg_active_high;  // Active-low for Basys3
-
 endmodule

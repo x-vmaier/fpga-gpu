@@ -6,7 +6,7 @@
       <db_ref path="TB_behav.wdb" id="1">
          <top_modules>
             <top_module name="TB" />
-            <top_module name="\$unit_upscaler2x_sv_501934293 " />
+            <top_module name="\$unit_tb_uart_sv_1576292298 " />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
@@ -14,11 +14,11 @@
    <zoom_setting>
       <ZoomStartTime time="0.000000 us"></ZoomStartTime>
       <ZoomEndTime time="1,092.265170 us"></ZoomEndTime>
-      <Cursor1Time time="1,092.265169 us"></Cursor1Time>
+      <Cursor1Time time="264.826064 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="100"></ValueColumnWidth>
+      <ValueColumnWidth column_width="95"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="3" />
    <wave_markers>

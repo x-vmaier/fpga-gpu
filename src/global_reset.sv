@@ -10,7 +10,7 @@ module global_reset #(
     output logic [NUM_DOMAINS-1:0] rst_n_out
 );
     // POR counter
-    (* ASYNC_REG = "TRUE" *) logic rst_n;
+    logic rst_n;
     logic [3:0] por_cnt;
 
     always_ff @(posedge por_clk) begin
@@ -26,10 +26,10 @@ module global_reset #(
     end
 
     // Per-domain synchronised deassert
-    genvar i;
     generate
-        for (i = 0; i < NUM_DOMAINS; i++) begin : gen_sync
-            (* ASYNC_REG = "TRUE" *) logic [SYNC_STAGES-1:0] sync_chain;
+        for (genvar i = 0; i < NUM_DOMAINS; i++) begin : gen_sync
+            (* ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *)
+            logic [SYNC_STAGES-1:0] sync_chain;
 
             always_ff @(posedge clk_in[i] or negedge rst_n) begin
                 if (!rst_n) begin
