@@ -35,9 +35,11 @@
             baud_cnt  <= '0;
             baud_tick <= '0;
         end else begin
-            baud_tick <= baud16_tick && (baud_cnt == 4'd14);
+            baud_tick <= '0;  // Default low
             if (baud16_tick) begin
-                baud_cnt <= baud_cnt + 1'b1;
+                // Divide baud16 by 16 to produce baud_tick
+                baud_cnt  <= baud_cnt + 1'b1;
+                baud_tick <= (baud_cnt == 4'd15);
             end
         end
     end
