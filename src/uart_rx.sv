@@ -8,7 +8,7 @@
 ) (
     input logic clk,
     input logic rst_n,
-    input logic baud_tick,
+    input logic baud_osr_tick,
     input logic rx,
     output logic valid,
     output logic [DATA_BITS-1:0] data_out
@@ -39,7 +39,7 @@
         end else begin
             valid <= 1'b0;  // Deassert each cycle
 
-            if (baud_tick) begin
+            if (baud_osr_tick) begin
                 case (state)
                     IDLE: begin
                         pulse_cnt <= '0;
