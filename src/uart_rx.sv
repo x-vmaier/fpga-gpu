@@ -89,9 +89,13 @@
                     end
 
                     STOP: begin
-                        // Wait for stop bit(s)
                         if (tick_cnt == SAMPLE_POINT) begin
-                            valid    <= 1'b1;  // data_out is stable here
+                            // Data only valid if stop bit is high
+                            if (rx) begin
+                                valid <= 1'b1;
+                            end else begin
+                                // Handle framing error
+                            end
                             tick_cnt <= '0;
                             state    <= IDLE;
                         end else begin
