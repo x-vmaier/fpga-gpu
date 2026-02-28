@@ -26,14 +26,13 @@
     logic [$clog2(DATA_BITS):0] bit_cnt;
     logic [DATA_BITS-1:0] shift_reg;
 
-    assign data_out = shift_reg;
-
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             state     <= IDLE;
             tick_cnt  <= '0;
             bit_cnt   <= '0;
             shift_reg <= '0;
+            data_out  <= '0;
             valid     <= 1'b0;
         end else begin
             valid <= 1'b0;  // Deassert each cycle
@@ -91,6 +90,7 @@
                         if (tick_cnt == SAMPLE_POINT) begin
                             // Data only valid if stop bit is high
                             if (rx) begin
+                                data_out <= shift_reg;
                                 valid <= 1'b1;
                             end else begin
                                 // Handle framing error
