@@ -6,8 +6,7 @@ module uart #(
     parameter int BAUD_OSR      = 8,
     parameter int DDS_FRAC_BITS = 16,
     parameter int DATA_BITS     = 8,
-    parameter int STOP_BITS     = 1,
-    parameter int PARITY_BITS   = 0
+    parameter int STOP_BITS     = 1
 ) (
     uart_io.driver uart_if
 );
@@ -26,9 +25,8 @@ module uart #(
     );
 
     uart_tx #(
-        .DATA_BITS  (DATA_BITS),
-        .STOP_BITS  (STOP_BITS),
-        .PARITY_BITS(PARITY_BITS)
+        .DATA_BITS(DATA_BITS),
+        .STOP_BITS(STOP_BITS)
     ) u_tx (
         .clk    (uart_if.clk),
         .rst_n  (uart_if.rst_n),
@@ -40,10 +38,9 @@ module uart #(
     );
 
     uart_rx #(
-        .DATA_BITS  (DATA_BITS),
-        .STOP_BITS  (STOP_BITS),
-        .PARITY_BITS(PARITY_BITS),
-        .BAUD_OSR   (BAUD_OSR)
+        .DATA_BITS(DATA_BITS),
+        .STOP_BITS(STOP_BITS),
+        .BAUD_OSR (BAUD_OSR)
     ) u_rx (
         .clk     (uart_if.clk),
         .rst_n   (uart_if.rst_n),
