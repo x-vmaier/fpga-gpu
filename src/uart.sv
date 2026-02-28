@@ -20,10 +20,9 @@ module uart #(
         .BAUD_OSR (BAUD_OSR),
         .FRAC_BITS(DDS_FRAC_BITS)
     ) bg0 (
-        .clk          (uart_if.clk),
-        .rst_n        (uart_if.rst_n),
-        .baud_tick    (baud_tick),
-        .baud_osr_tick(baud_osr_tick)
+        .clk  (uart_if.clk),
+        .rst_n(uart_if.rst_n),
+        .*
     );
 
     uart_tx #(
@@ -31,13 +30,13 @@ module uart #(
         .STOP_BITS  (STOP_BITS),
         .PARITY_BITS(PARITY_BITS)
     ) u_tx (
-        .clk      (uart_if.clk),
-        .rst_n    (uart_if.rst_n),
-        .baud_tick(baud_tick),
-        .data_in  (uart_if.tx_data),
-        .valid    (uart_if.tx_valid),
-        .ready    (uart_if.tx_ready),
-        .tx       (uart_if.tx)
+        .clk    (uart_if.clk),
+        .rst_n  (uart_if.rst_n),
+        .data_in(uart_if.tx_data),
+        .valid  (uart_if.tx_valid),
+        .ready  (uart_if.tx_ready),
+        .tx     (uart_if.tx),
+        .*
     );
 
     uart_rx #(
@@ -46,11 +45,11 @@ module uart #(
         .PARITY_BITS(PARITY_BITS),
         .BAUD_OSR   (BAUD_OSR)
     ) u_rx (
-        .clk      (uart_if.clk),
-        .rst_n    (uart_if.rst_n),
-        .baud_tick(baud_osr_tick),
-        .rx       (uart_if.rx),
-        .data_out (uart_if.rx_data),
-        .valid    (uart_if.rx_valid)
+        .clk     (uart_if.clk),
+        .rst_n   (uart_if.rst_n),
+        .rx      (uart_if.rx),
+        .data_out(uart_if.rx_data),
+        .valid   (uart_if.rx_valid),
+        .*
     );
 endmodule
