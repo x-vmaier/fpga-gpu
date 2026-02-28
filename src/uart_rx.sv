@@ -1,11 +1,10 @@
 `timescale 1ns / 1ps
 
 (* keep_hierarchy = "yes" *) module uart_rx #(
-    parameter int DATA_BITS     = 8,
-    parameter int STOP_BITS     = 1,
-    parameter int PARITY_BITS   = 0,
-    parameter int TICKS_PER_BIT = 16,
-    parameter int SAMPLE_POINT  = 7
+    parameter int DATA_BITS   = 8,
+    parameter int STOP_BITS   = 1,
+    parameter int PARITY_BITS = 0,
+    parameter int BAUD_OSR    = 8
 ) (
     input logic clk,
     input logic rst_n,
@@ -14,6 +13,8 @@
     output logic valid,
     output logic [DATA_BITS-1:0] data_out
 );
+    localparam SAMPLE_POINT = BAUD_OSR / 2 - 1;
+
     typedef enum logic [1:0] {
         IDLE  = 2'b00,
         START = 2'b01,
@@ -22,7 +23,7 @@
     } state_t;
 
     state_t state;
-    logic [$clog2(TICKS_PER_BIT)-1:0] pulse_cnt;
+    logic [$clog2(BAUD_OSR)-1:0] pulse_cnt;
     logic [$clog2(DATA_BITS):0] bit_cnt;
     logic [DATA_BITS-1:0] shift_reg;
 
@@ -70,7 +71,7 @@
 
                     DATA: begin
                         // Sample each data bit at the sample point
-                        if (pulse_cnt == TICKS_PER_BIT - 1) begin
+                        if (pulse_cnt == BAUD_OSR - 1) begin
                             pulse_cnt <= '0;
 
                             // Shift in LSB-first
