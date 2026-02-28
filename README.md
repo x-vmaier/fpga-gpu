@@ -4,6 +4,7 @@ Fixed-function graphics pipeline with UART interface implemented on Basys 3.
 
 ## To-Do
 
-| Name                         | Status      |
-| ---------------------------- | ----------- |
-| Two-stage input synchronizer | Not Started |
+| Name                          | Priority | Status      |
+| ----------------------------- | -------- | ----------- |
+| Add UART framing error output | High     | Not Started |
+| Two-stage input synchronizer  | High     | Not Started |
