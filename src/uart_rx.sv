@@ -23,7 +23,7 @@
     } state_t;
 
     state_t state;
-    logic [$clog2(BAUD_OSR)-1:0] pulse_cnt;
+    logic [$clog2(BAUD_OSR)-1:0] tick_cnt;
     logic [$clog2(DATA_BITS):0] bit_cnt;
     logic [DATA_BITS-1:0] shift_reg;
 
@@ -32,7 +32,7 @@
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             state     <= IDLE;
-            pulse_cnt <= '0;
+            tick_cnt  <= '0;
             bit_cnt   <= '0;
             shift_reg <= '0;
             valid     <= 1'b0;
@@ -42,8 +42,8 @@
             if (baud_osr_tick) begin
                 case (state)
                     IDLE: begin
-                        pulse_cnt <= '0;
-                        bit_cnt   <= '0;
+                        tick_cnt <= '0;
+                        bit_cnt  <= '0;
 
                         // Falling edge translates to start bit
                         if (!rx) begin
@@ -53,26 +53,26 @@
 
                     START: begin
                         // Sample at the center of each bit period
-                        if (pulse_cnt == SAMPLE_POINT) begin
+                        if (tick_cnt == SAMPLE_POINT) begin
                             // Verify start bit is still low at bit center
                             if (!rx) begin
                                 // Confirmed start bit
-                                pulse_cnt <= '0;  // Reset counter for data
-                                state     <= DATA;
+                                tick_cnt <= '0;  // Reset counter for data
+                                state    <= DATA;
                             end else begin
                                 // Glitch happened if line went back high
-                                pulse_cnt <= '0;
-                                state     <= IDLE;  // Return to IDLE
+                                tick_cnt <= '0;
+                                state    <= IDLE;  // Return to IDLE
                             end
                         end else begin
-                            pulse_cnt <= pulse_cnt + 1'b1;
+                            tick_cnt <= tick_cnt + 1'b1;
                         end
                     end
 
                     DATA: begin
                         // Sample each data bit at the sample point
-                        if (pulse_cnt == BAUD_OSR - 1) begin
-                            pulse_cnt <= '0;
+                        if (tick_cnt == BAUD_OSR - 1) begin
+                            tick_cnt  <= '0;
 
                             // Shift in LSB-first
                             shift_reg <= {rx, shift_reg[DATA_BITS-1:1]};
@@ -84,18 +84,18 @@
                                 bit_cnt <= bit_cnt + 1'b1;
                             end
                         end else begin
-                            pulse_cnt <= pulse_cnt + 1'b1;
+                            tick_cnt <= tick_cnt + 1'b1;
                         end
                     end
 
                     STOP: begin
                         // Wait for stop bit(s)
-                        if (pulse_cnt == SAMPLE_POINT) begin
-                            valid     <= 1'b1;  // data_out is stable here
-                            pulse_cnt <= '0;
-                            state     <= IDLE;
+                        if (tick_cnt == SAMPLE_POINT) begin
+                            valid    <= 1'b1;  // data_out is stable here
+                            tick_cnt <= '0;
+                            state    <= IDLE;
                         end else begin
-                            pulse_cnt <= pulse_cnt + 1'b1;
+                            tick_cnt <= tick_cnt + 1'b1;
                         end
                     end
 
