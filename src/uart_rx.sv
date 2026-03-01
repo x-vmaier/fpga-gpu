@@ -92,9 +92,7 @@
                             if (rx) begin
                                 data_out <= shift_reg;
                                 valid <= 1'b1;
-                            end else begin
-                                // Handle framing error
-                            end
+                            end  // No else as framing errors are very rare
                             tick_cnt <= '0;
                             state    <= IDLE;
                         end else begin
