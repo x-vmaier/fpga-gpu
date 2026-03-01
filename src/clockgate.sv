@@ -8,6 +8,7 @@
     output logic [GATES-1:0] cg_clk
 );
     logic [GATES-2:0] cnt;
+    logic [GATES-2:0] clk_en;
 
     // Counter
     always_ff @(posedge clk or negedge rst_n) begin
@@ -18,12 +19,26 @@
         end
     end
 
-    assign cg_clk[0] = 1'b1;
-
-    generate
-        // Reduction AND over a slice
-        for (genvar k = 1; k < GATES; k++) begin : gen_gate
-            assign cg_clk[k] = &cnt[k-1:0];
+    // Clock enable logic
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            clk_en <= '0;
+        end else begin
+            for (int i = 0; i < GATES - 1; i++) begin
+                clk_en[i] <= &cnt[i:0];
+            end
         end
-    endgenerate
+    end
+
+    // cg_clk[0] is the full-rate clock
+    assign cg_clk[0] = clk;
+
+    // BUFGCE per gated clock output
+    for (genvar i = 1; i < GATES; i++) begin : gen_bufgce
+        BUFGCE u_bufgce (
+            .I (clk),
+            .CE(clk_en[i-1]),
+            .O (cg_clk[i])
+        );
+    end
 endmodule
