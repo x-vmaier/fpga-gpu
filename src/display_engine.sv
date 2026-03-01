@@ -23,10 +23,10 @@
         .douta(pixel_data)
     );
 
-    upscaler2x #(
+    nearest_upscaler_2x #(
         .H_OUT(H_ACTIVE),
         .V_OUT(V_ACTIVE)
-    ) up2x0 (
+    ) nup2x0 (
         .*
     );
 

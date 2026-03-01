@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-(* keep_hierarchy = "yes" *) module upscaler2x #(
+(* keep_hierarchy = "yes" *) module nearest_upscaler_2x #(
     parameter int H_OUT = 640,
     parameter int V_OUT = 480
 ) (
