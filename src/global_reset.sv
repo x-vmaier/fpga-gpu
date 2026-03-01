@@ -15,31 +15,28 @@ module global_reset #(
 
     always_ff @(posedge por_clk) begin
         if (!enable) begin
-            por_cnt <= '0;  // hold in reset until enable (locked) asserts
+            // Hold in reset until enable (locked) asserts
+            por_cnt <= '0;
             rst_n   <= 1'b0;
         end else if (por_cnt != 4'hF) begin
             por_cnt <= por_cnt + 1'b1;
             rst_n   <= 1'b0;
         end else begin
-            rst_n <= 1'b1;  // deassert when fully counted
+            // Deassert when fully counted
+            rst_n <= 1'b1;
         end
     end
 
     // Per-domain synchronised deassert
-    generate
-        for (genvar i = 0; i < NUM_DOMAINS; i++) begin : gen_sync
-            (* ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *)
-            logic [SYNC_STAGES-1:0] sync_chain;
-
-            always_ff @(posedge clk_in[i] or negedge rst_n) begin
-                if (!rst_n) begin
-                    sync_chain <= '0;
-                end else begin
-                    sync_chain <= {sync_chain[SYNC_STAGES-2:0], 1'b1};
-                end
-            end
-
-            assign rst_n_out[i] = sync_chain[SYNC_STAGES-1];
-        end
-    endgenerate
+    for (genvar i = 0; i < NUM_DOMAINS; i++) begin : gen_sync
+        input_sync #(
+            .NUM_SIGNALS(1),
+            .SYNC_STAGES(2)
+        ) u_sync (
+            .clk     (clk_in[i]),
+            .rst_n   (rst_n),
+            .async_in(1'(1'b1)),
+            .sync_out(rst_n_out[i])
+        );
+    end
 endmodule
