@@ -111,7 +111,7 @@ proc ensure_fileset { name type } {
 }
 
 # Create Project
-fpga-gpu $PROJECT_NAME ${ORIGIN_DIR}/${PROJECT_NAME} -part $PART
+create_project $PROJECT_NAME ${ORIGIN_DIR}/${PROJECT_NAME} -part $PART
 
 set PROJ_DIR [get_property directory [current_project]]
 
