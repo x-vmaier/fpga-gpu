@@ -57,53 +57,9 @@ if { $::argc > 0 } {
     }
 }
 
-# Optional pre-flight file check (set validate_required 1 to enable)
-proc checkRequiredFiles { origin_dir } {
-    set status true
-    set files [list \
-        [file normalize "$origin_dir/src/clockgate.sv"] \
-        [file normalize "$origin_dir/src/baud_gen.sv"] \
-        [file normalize "$origin_dir/src/display_engine.sv"] \
-        [file normalize "$origin_dir/src/global_reset.sv"] \
-        [file normalize "$origin_dir/src/seven_segment_translator.sv"] \
-        [file normalize "$origin_dir/src/uart.sv"] \
-        [file normalize "$origin_dir/src/uart_io.sv"] \
-        [file normalize "$origin_dir/src/uart_rx.sv"] \
-        [file normalize "$origin_dir/src/uart_tx.sv"] \
-        [file normalize "$origin_dir/src/upscaler2x.sv"] \
-        [file normalize "$origin_dir/src/vga_controller.sv"] \
-        [file normalize "$origin_dir/src/dut.sv"] \
-        [file normalize "$origin_dir/resources/image.coe"] \
-        [file normalize "$origin_dir/constrs/Basys3_Master.xdc"] \
-        [file normalize "$origin_dir/sim/TB.sv"] \
-        [file normalize "$origin_dir/sim/tb_uart.sv"] \
-        [file normalize "$origin_dir/sim/tb_vga_controller.sv"] \
-        [file normalize "$origin_dir/sim/TB_task_collection.vh"] \
-        [file normalize "$origin_dir/sim/TB_macro_collection.vh"] \
-        [file normalize "$origin_dir/sim/TB_behav.wcfg"] \
-    ]
-    foreach f $files {
-        if { ![file isfile $f] } {
-            puts "WARNING: Missing required file: $f"
-            set status false
-        }
-    }
-    return $status
-}
-
-set validate_required 0
-if { $validate_required } {
-    if { [checkRequiredFiles $ORIGIN_DIR] } {
-        puts "INFO: All required files found."
-    } else {
-        puts "ERROR: One or more required files are missing. Aborting."
-        return 1
-    }
-}
-
 set PART "xc7a35tcpg236-1"
 
-# Helper: create a fileset if it doesn't already exist
+# Create a fileset if it doesn't already exist
 proc ensure_fileset { name type } {
     if { [string equal [get_filesets -quiet $name] ""] } {
         create_fileset $type $name
@@ -137,31 +93,20 @@ ensure_fileset sources_1 -srcset
 
 set SRC_OBJ [get_filesets sources_1]
 
-# Add all source files explicitly so file_type is set correctly
-set src_sv_files [list \
-    [file normalize "${ORIGIN_DIR}/src/clockgate.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/baud_gen.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/display_engine.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/global_reset.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/seven_segment_translator.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/uart.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/uart_io.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/uart_rx.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/uart_tx.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/nearest_upscaler_2x.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/vga_controller.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/dut.sv"] \
-    [file normalize "${ORIGIN_DIR}/resources/image.coe"] \
-]
-add_files -norecurse -fileset $SRC_OBJ $src_sv_files
+# Add sources
+set src_sv_files  [glob -nocomplain ${ORIGIN_DIR}/src/*.sv]
+set src_coe_files [glob -nocomplain ${ORIGIN_DIR}/resources/*.coe]
+set all_src_files [concat $src_sv_files $src_coe_files]
+
+if { [llength $all_src_files] > 0 } {
+    add_files -norecurse -fileset $SRC_OBJ $all_src_files
+}
 
 # Stamp every .sv source as SystemVerilog
 foreach f $src_sv_files {
-    if { [string equal [file extension $f] ".sv"] } {
-        set fobj [get_files -of_objects $SRC_OBJ [list "*[file tail $f]"]]
-        if { $fobj ne "" } {
-            set_property file_type SystemVerilog $fobj
-        }
+    set fobj [get_files -of_objects $SRC_OBJ [list "*[file tail $f]"]]
+    if { $fobj ne "" } {
+        set_property file_type SystemVerilog $fobj
     }
 }
 
@@ -245,26 +190,24 @@ ensure_fileset sim_1 -simset
 
 set SIM_OBJ [get_filesets sim_1]
 
-# Add sim files explicitly so file_type is stamped correctly
-set sim_files [list \
-    [file normalize "${ORIGIN_DIR}/sim/TB_behav.wcfg"] \
-    [file normalize "${ORIGIN_DIR}/sim/TB_task_collection.vh"] \
-    [file normalize "${ORIGIN_DIR}/sim/TB_macro_collection.vh"] \
-    [file normalize "${ORIGIN_DIR}/sim/tb_uart.sv"] \
-    [file normalize "${ORIGIN_DIR}/sim/tb_vga_controller.sv"] \
-    [file normalize "${ORIGIN_DIR}/sim/TB.sv"] \
-]
-add_files -norecurse -fileset $SIM_OBJ $sim_files
+# Add sim files via glob
+set sim_sv_files   [glob -nocomplain ${ORIGIN_DIR}/sim/*.sv]
+set sim_vh_files   [glob -nocomplain ${ORIGIN_DIR}/sim/*.vh]
+set sim_wcfg_files [glob -nocomplain ${ORIGIN_DIR}/sim/*.wcfg]
+set all_sim_files  [concat $sim_sv_files $sim_vh_files $sim_wcfg_files]
+
+if { [llength $all_sim_files] > 0 } {
+    add_files -norecurse -fileset $SIM_OBJ $all_sim_files
+}
 
 # Stamp file types
-foreach f $sim_files {
-    set ext  [file extension $f]
+foreach f $sim_sv_files {
     set fobj [get_files -of_objects $SIM_OBJ [list "*[file tail $f]"]]
-    if { $fobj eq "" } { continue }
-    switch $ext {
-        ".sv"   { set_property file_type SystemVerilog   $fobj }
-        ".vh"   { set_property file_type {Verilog Header} $fobj }
-    }
+    if { $fobj ne "" } { set_property file_type SystemVerilog    $fobj }
+}
+foreach f $sim_vh_files {
+    set fobj [get_files -of_objects $SIM_OBJ [list "*[file tail $f]"]]
+    if { $fobj ne "" } { set_property file_type {Verilog Header} $fobj }
 }
 
 set_property -dict {
@@ -342,7 +285,7 @@ set_property set_report_strategy_name 1 $IMPL_OBJ
 set_property report_strategy {Vivado Implementation Default Reports} $IMPL_OBJ
 set_property set_report_strategy_name 0 $IMPL_OBJ
 
-# Helper: create an impl report config if it doesn't already exist
+# Create an impl report config if it doesn't already exist
 proc add_impl_report { name type step {props {}} } {
     if { [string equal [get_report_configs -of_objects [get_runs impl_1] $name] ""] } {
         create_report_config \
