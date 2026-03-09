@@ -148,7 +148,7 @@ set src_sv_files [list \
     [file normalize "${ORIGIN_DIR}/src/uart_io.sv"] \
     [file normalize "${ORIGIN_DIR}/src/uart_rx.sv"] \
     [file normalize "${ORIGIN_DIR}/src/uart_tx.sv"] \
-    [file normalize "${ORIGIN_DIR}/src/upscaler2x.sv"] \
+    [file normalize "${ORIGIN_DIR}/src/nearest_upscaler_2x.sv"] \
     [file normalize "${ORIGIN_DIR}/src/vga_controller.sv"] \
     [file normalize "${ORIGIN_DIR}/src/dut.sv"] \
     [file normalize "${ORIGIN_DIR}/resources/image.coe"] \
