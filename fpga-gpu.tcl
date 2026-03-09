@@ -80,7 +80,7 @@ proc checkRequiredFiles { origin_dir } {
         [file normalize "$origin_dir/sim/tb_vga_controller.sv"] \
         [file normalize "$origin_dir/sim/TB_task_collection.vh"] \
         [file normalize "$origin_dir/sim/TB_macro_collection.vh"] \
-        [file normalize "$origin_dir/TB_behav.wcfg"] \
+        [file normalize "$origin_dir/sim/TB_behav.wcfg"] \
     ]
     foreach f $files {
         if { ![file isfile $f] } {
@@ -247,7 +247,7 @@ set SIM_OBJ [get_filesets sim_1]
 
 # Add sim files explicitly so file_type is stamped correctly
 set sim_files [list \
-    [file normalize "${ORIGIN_DIR}/TB_behav.wcfg"] \
+    [file normalize "${ORIGIN_DIR}/sim/TB_behav.wcfg"] \
     [file normalize "${ORIGIN_DIR}/sim/TB_task_collection.vh"] \
     [file normalize "${ORIGIN_DIR}/sim/TB_macro_collection.vh"] \
     [file normalize "${ORIGIN_DIR}/sim/tb_uart.sv"] \
