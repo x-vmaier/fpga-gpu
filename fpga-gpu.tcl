@@ -181,12 +181,11 @@ ensure_fileset constrs_1 -constrset
 
 set CONSTR_OBJ [get_filesets constrs_1]
 
-set xdc_files [glob -nocomplain ${ORIGIN_DIR}/constrs/*.xdc]
-if { [llength $xdc_files] > 0 } {
-    add_files -fileset $CONSTR_OBJ $xdc_files
-}
-
 set_property target_part $PART $CONSTR_OBJ
+
+add_files -fileset $CONSTR_OBJ ${ORIGIN_DIR}/constrs/Basys3_Master.xdc
+add_files -fileset $CONSTR_OBJ ${ORIGIN_DIR}/constrs/Timings.xdc
+set_property used_in_synthesis false [get_files ${ORIGIN_DIR}/constrs/Timings.xdc]
 
 # Simulation Fileset
 ensure_fileset sim_1 -simset
