@@ -125,30 +125,31 @@ create_ip \
     -module_name clk_wiz_0
 
 set_property -dict {
-    CONFIG.PRIM_IN_FREQ              {100.000}
-    CONFIG.PRIM_SOURCE               {Single_ended_clock_capable_pin}
-    CONFIG.PRIMITIVE                 {MMCM}
-    CONFIG.USE_FREQ_SYNTH            {true}
-    CONFIG.USE_PHASE_ALIGNMENT       {true}
-    CONFIG.USE_SAFE_CLOCK_STARTUP    {true}
-    CONFIG.NUM_OUT_CLKS              {1}
-    CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {25.175}
-    CONFIG.CLKOUT1_REQUESTED_PHASE   {0.000}
+    CONFIG.PRIM_IN_FREQ                 {100.000}
+    CONFIG.PRIM_SOURCE                  {Single_ended_clock_capable_pin}
+    CONFIG.PRIMITIVE                    {MMCM}
+    CONFIG.USE_FREQ_SYNTH               {true}
+    CONFIG.USE_PHASE_ALIGNMENT          {true}
+    CONFIG.USE_SAFE_CLOCK_STARTUP       {true}
+    CONFIG.NUM_OUT_CLKS                 {1}
+    CONFIG.CLKOUT1_REQUESTED_OUT_FREQ   {25.175}
+    CONFIG.CLKOUT1_REQUESTED_PHASE      {0.000}
     CONFIG.CLKOUT1_REQUESTED_DUTY_CYCLE {50.000}
-    CONFIG.CLKOUT1_DRIVES            {BUFGCE}
-    CONFIG.USE_RESET                 {true}
-    CONFIG.RESET_TYPE                {ACTIVE_LOW}
-    CONFIG.RESET_PORT                {resetn}
-    CONFIG.USE_LOCKED                {true}
-    CONFIG.LOCKED_PORT               {locked}
-    CONFIG.FEEDBACK_SOURCE           {FDBK_AUTO}
-    CONFIG.MMCM_DIVCLK_DIVIDE        {4}
-    CONFIG.MMCM_CLKFBOUT_MULT_F      {36.375}
-    CONFIG.MMCM_CLKOUT0_DIVIDE_F     {36.125}
-    CONFIG.JITTER_SEL                {No_Jitter}
+    CONFIG.CLKOUT1_DRIVES               {BUFGCE}
+    CONFIG.USE_RESET                    {true}
+    CONFIG.RESET_TYPE                   {ACTIVE_LOW}
+    CONFIG.RESET_PORT                   {resetn}
+    CONFIG.USE_LOCKED                   {true}
+    CONFIG.LOCKED_PORT                  {locked}
+    CONFIG.FEEDBACK_SOURCE              {FDBK_AUTO}
+    CONFIG.MMCM_DIVCLK_DIVIDE           {4}
+    CONFIG.MMCM_CLKFBOUT_MULT_F         {36.375}
+    CONFIG.MMCM_CLKOUT0_DIVIDE_F        {36.125}
+    CONFIG.JITTER_SEL                   {No_Jitter}
 } [get_ips clk_wiz_0]
 
 generate_target all [get_ips clk_wiz_0]
+set_msg_config -id {Netlist 29-345} -new_severity INFO
 
 # IP: Block Memory Generator (blk_mem_gen_0)
 create_ip \
@@ -158,18 +159,20 @@ create_ip \
     -version     8.4 \
     -module_name blk_mem_gen_0
 
-set_property -dict {
-    CONFIG.Memory_Type                              {Single_Port_ROM}
-    CONFIG.Write_Width_A                            {12}
-    CONFIG.Write_Depth_A                            {76800}
-    CONFIG.Read_Width_A                             {12}
-    CONFIG.Enable_A                                 {Always_Enabled}
-    CONFIG.Register_PortA_Output_of_Memory_Primitives {false}
-    CONFIG.Load_Init_File                           {true}
-    CONFIG.Coe_File                                 {../../../../../resources/image.coe}
-    CONFIG.Use_RSTA_Pin                             {false}
-    CONFIG.Algorithm                                {Minimum_Area}
-} [get_ips blk_mem_gen_0]
+set coe_path [file normalize "${ORIGIN_DIR}/resources/image.coe"]
+
+set_property -dict [list \
+    CONFIG.Memory_Type                                {Single_Port_ROM} \
+    CONFIG.Write_Width_A                              {12} \
+    CONFIG.Write_Depth_A                              {76800} \
+    CONFIG.Read_Width_A                               {12} \
+    CONFIG.Enable_A                                   {Always_Enabled} \
+    CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
+    CONFIG.Load_Init_File                             {true} \
+    CONFIG.Coe_File                                   $coe_path \
+    CONFIG.Use_RSTA_Pin                               {false} \
+    CONFIG.Algorithm                                  {Minimum_Area} \
+] [get_ips blk_mem_gen_0]
 
 generate_target all [get_ips blk_mem_gen_0]
 
