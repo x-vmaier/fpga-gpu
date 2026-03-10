@@ -2,6 +2,9 @@
 # exist at synthesis time. This file must be marked used_in_synthesis false.
 
 
+# System clock
+create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk_osc]
+
 # Clock domain crossing
 set_clock_groups -name cdc_sys_vga -asynchronous \
     -group [get_clocks sys_clk_pin] \
