@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module uart #(
+(* keep_hierarchy = "yes" *) module uart #(
     parameter int CLK_FREQ      = 100_000_000,
     parameter int BAUD_RATE     = 921_600,
     parameter int BAUD_OSR      = 8,

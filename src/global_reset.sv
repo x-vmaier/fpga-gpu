@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module global_reset #(
+(* keep_hierarchy = "yes" *) module global_reset #(
     parameter int NUM_DOMAINS = 2,
     parameter int SYNC_STAGES = 2
 ) (
