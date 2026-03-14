@@ -2,13 +2,13 @@
 # Target: xc7a35tcpg236-1 (Artix-7)
 #
 # Usage (batch mode):
-#   vivado -mode batch -source fpga-gpu.tcl
-#   vivado -mode batch -source fpga-gpu.tcl -tclargs --origin_dir <path>
-#   vivado -mode batch -source fpga-gpu.tcl -tclargs --project_name <name>
-#   vivado -mode batch -source fpga-gpu.tcl -tclargs --help
+#   vivado -mode batch -source build.tcl
+#   vivado -mode batch -source build.tcl -tclargs --origin_dir <path>
+#   vivado -mode batch -source build.tcl -tclargs --project_name <name>
+#   vivado -mode batch -source build.tcl -tclargs --help
 
 # Project Name
-set PROJECT_NAME "fpga-gpu"
+set PROJECT_NAME "build"
 if { [info exists ::user_project_name] } {
     set PROJECT_NAME $::user_project_name
 }
@@ -21,7 +21,7 @@ if { [info exists ::origin_dir_loc] } {
 
 # CLI argument parser
 variable script_file
-set script_file "fpga-gpu.tcl"
+set script_file "build.tcl"
 
 proc print_help {} {
     variable script_file

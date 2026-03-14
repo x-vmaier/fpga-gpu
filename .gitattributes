@@ -21,4 +21,4 @@
 *.bd    text eol=lf
 
 # GitHub Linguist
-fpga-gpu.tcl linguist-vendored
+build.tcl linguist-vendored

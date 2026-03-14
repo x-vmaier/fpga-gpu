@@ -1,6 +1,5 @@
 # Vivado Project
-fpga-gpu/
+build/
 dfx_runtime.txt
-*_rgb444_preview.png
-*.hex
+*_preview.png
 *.coe
