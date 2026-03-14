@@ -15,22 +15,19 @@
     output logic [3:0] an,
     output logic dp
 );
-    // Clocks & resets
-    localparam int DOM_SYS = 1;
-    localparam int DOM_VGA = 0;
+    localparam int DOM_SYS = 0;
+    localparam int DOM_VGA = 1;
 
-    logic clk_vga;
+    // Clocks and resets
     logic [1:0] clk_arr;
     logic [1:0] rst_arr;
-    logic rst_n_clk_osc;
-    logic rst_n_clk_vga;
     logic pll_locked;
 
+    // Input synchronization
     logic rx_sync;
     logic [15:0] sw_sync;
-    logic [16:0] async_in;
-    logic [16:0] sync_out;
 
+    // 7-Segment display
     logic [15:0] segment_data_in;
     logic [3:0] segment_point_in;
 
@@ -38,60 +35,52 @@
     assign LED = sw_sync;
 
     // Clock wizard (MMCM)
-    clk_wiz_0 cw0 (
+    assign clk_arr[DOM_SYS] = clk_osc;
+
+    clk_wiz_0 u_clk_wiz (
         .clk_in1 (clk_osc),
-        .resetn  (1'b1),     // MMCM has its own POR on Xilinx 7-series
-        .clk_out1(clk_vga),
+        .resetn  (1'b1),
+        .clk_out1(clk_arr[DOM_VGA]),
         .locked  (pll_locked)
     );
 
     // Global reset
-    assign clk_arr[DOM_SYS] = clk_osc;
-    assign clk_arr[DOM_VGA] = clk_vga;
-
-    global_reset gr0 (
+    global_reset u_global_reset (
         .por_clk  (clk_osc),
         .clk_in   (clk_arr),
         .rst_n_out(rst_arr),
-        .enable   (pll_locked) // stall POR counter until clocks stable
+        .enable   (pll_locked)
     );
 
-    assign rst_n_clk_osc = rst_arr[DOM_SYS];
-    assign rst_n_clk_vga = rst_arr[DOM_VGA];
-
-    // Input synchronization
-    assign async_in = {sw, RsRx};
-
+    // Synchronize external signals
     input_sync #(
         .NUM_SIGNALS(17),
         .SYNC_STAGES(2)
-    ) input_sync0 (
+    ) u_input_sync0 (
         .clk     (clk_osc),
-        .rst_n   (rst_n_clk_osc),
-        .async_in(async_in),
-        .sync_out(sync_out)
+        .rst_n   (rst_arr[DOM_SYS]),
+        .async_in({sw, RsRx}),
+        .sync_out({sw_sync, rx_sync})
     );
-
-    assign rx_sync = sync_out[0];
-    assign sw_sync = sync_out[16:1];
 
     // UART interface
     uart_io uart_if (
         .clk  (clk_osc),
-        .rst_n(rst_n_clk_osc)
+        .rst_n(rst_arr[DOM_SYS])
     );
 
     assign uart_if.rx = rx_sync;
     assign RsTx = uart_if.tx;
 
+    // UART module
+    uart u_uart (.uart_if(uart_if));
+
+    // Display UART Rx data
     assign segment_data_in = {8'b0, uart_if.rx_data};
 
-    // Sub-blocks
-    uart u_uart0 (.uart_if(uart_if));
-
-    seven_segment_translator sst0 (
+    seven_segment_translator u_seven_seg (
         .clk             (clk_osc),
-        .rst_n           (rst_n_clk_osc),
+        .rst_n           (rst_arr[DOM_SYS]),
         .segment_data_in (segment_data_in),
         .segment_point_in(segment_point_in),
         .seg             (seg),
@@ -99,9 +88,10 @@
         .dp              (dp)
     );
 
-    display_engine de0 (
-        .clk     (clk_vga),
-        .rst_n   (rst_n_clk_vga),
+    // VGA display output
+    display_engine u_display_engine (
+        .clk     (clk_arr[DOM_VGA]),
+        .rst_n   (rst_arr[DOM_VGA]),
         .vgaRed  (vgaRed),
         .vgaGreen(vgaGreen),
         .vgaBlue (vgaBlue),
