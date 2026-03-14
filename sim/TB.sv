@@ -18,14 +18,14 @@ module TB;
     logic dp;
 
     // DUT Instance
-    dut dut0 (
+    dut u_dut (
         .clk_osc(clk),
         .*
     );
 
     // Instantiate tests
-    tb_vga_controller inst_tb_vga_controller ();
-    tb_uart inst_tb_uart ();
+    tb_vga_controller u_tb_vga_controller ();
+    tb_uart u_tb_uart ();
 
     // Start tests
     `start_clock

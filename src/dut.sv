@@ -56,7 +56,7 @@
     input_sync #(
         .NUM_SIGNALS(17),
         .SYNC_STAGES(2)
-    ) u_input_sync0 (
+    ) u_sync (
         .clk     (clk_osc),
         .rst_n   (rst_arr[DOM_SYS]),
         .async_in({sw, RsRx}),

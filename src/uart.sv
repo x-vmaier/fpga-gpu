@@ -18,7 +18,7 @@
         .BAUD_RATE(BAUD_RATE),
         .BAUD_OSR (BAUD_OSR),
         .FRAC_BITS(DDS_FRAC_BITS)
-    ) bg0 (
+    ) u_baud_gen (
         .clk          (uart_if.clk),
         .rst_n        (uart_if.rst_n),
         .baud_tick    (baud_tick),

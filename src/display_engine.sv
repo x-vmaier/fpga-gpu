@@ -26,14 +26,14 @@
     nearest_upscaler_2x #(
         .H_OUT(H_ACTIVE),
         .V_OUT(V_ACTIVE)
-    ) nup2x0 (
+    ) u_nearest_2x (
         .*
     );
 
     vga_controller #(
         .H_ACTIVE(H_ACTIVE),
         .V_ACTIVE(V_ACTIVE)
-    ) vga0 (
+    ) u_vga_controller (
         .*
     );
 endmodule
