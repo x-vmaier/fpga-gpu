@@ -31,11 +31,13 @@
     logic display_active_rr;
     logic Hsync_r, Vsync_r;
 
+    // Horizontal and vertical counters
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             Hcnt <= '0;
             Vcnt <= '0;
         end else begin
+            // Increase vertical count if horizontal count wraps
             if (Hcnt == H_TOTAL - 1) begin
                 Hcnt <= '0;
                 Vcnt <= (Vcnt == V_TOTAL - 1) ? '0 : Vcnt + 1'b1;
@@ -45,10 +47,11 @@
         end
     end
 
+    // Signal goes high when counters are within the visible region
     assign display_active = (Hcnt >= H_SYNC + H_BP && Hcnt < H_SYNC + H_BP + H_ACTIVE) &&
                             (Vcnt >= V_SYNC + V_BP && Vcnt < V_SYNC + V_BP + V_ACTIVE);
 
-    // Register coordinates and sync signals
+    // Pixel coordinates and sync signals
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             x_dest <= '0;
@@ -57,8 +60,11 @@
             Vsync_r <= 1'b1;
             display_active_r <= 1'b0;
         end else begin
+            // Translate counter values to pixel coordinates
             x_dest <= display_active ? Hcnt - (H_SYNC + H_BP) : '0;
             y_dest <= display_active ? Vcnt - (V_SYNC + V_BP) : '0;
+
+            // First pipeline stage for BRAM latency alignment
             Hsync_r <= ~(Hcnt < H_SYNC);
             Vsync_r <= ~(Vcnt < V_SYNC);
             display_active_r <= display_active;
@@ -72,6 +78,7 @@
             Vsync <= 1'b1;
             display_active_rr <= 1'b0;
         end else begin
+            // Second pipeline stage for BRAM latency alignment
             Hsync <= Hsync_r;
             Vsync <= Vsync_r;
             display_active_rr <= display_active_r;
