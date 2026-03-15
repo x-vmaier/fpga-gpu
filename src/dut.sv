@@ -75,6 +75,27 @@
     assign uart_if.rx = rx_sync;
     assign RsTx = uart_if.tx;
 
+    logic [7:0] echo_data;
+    logic echo_pending;
+
+    assign uart_if.tx_data  = echo_data;
+    assign uart_if.tx_valid = echo_pending && uart_if.tx_ready;
+
+    always_ff @(posedge clk_osc or negedge rst_arr[DOM_SYS]) begin
+        if (!rst_arr[DOM_SYS]) begin
+            echo_data <= '0;
+            echo_pending <= 1'b0;
+        end else begin
+            if (uart_if.rx_valid) begin
+                echo_data <= uart_if.rx_data;
+                echo_pending <= 1'b1;
+            end else if (!uart_if.tx_ready && echo_pending) begin
+                // TX latched the byte this cycle
+                echo_pending <= 1'b0;
+            end
+        end
+    end
+
     // UART module
     uart #(
         .BAUD_RATE(921_600),
