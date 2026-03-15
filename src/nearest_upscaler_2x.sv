@@ -16,11 +16,15 @@
     logic [$clog2(H_SRC)-1:0] h_src;
     logic [$clog2(V_SRC)-1:0] v_src;
 
+    // Same source pixel for adjacent pixels
     assign h_src = x_dest >> 1;
     assign v_src = y_dest >> 1;
 
     always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) addr <= '0;
-        else addr <= v_src * H_SRC + h_src;
+        if (!rst_n) begin
+            addr <= '0;
+        end else begin
+            addr <= v_src * H_SRC + h_src;
+        end
     end
 endmodule
