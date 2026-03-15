@@ -12,13 +12,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="712.342985 us"></ZoomStartTime>
-      <ZoomEndTime time="772.004406 us"></ZoomEndTime>
-      <Cursor1Time time="746.127163 us"></Cursor1Time>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="1,092.265170 us"></ZoomEndTime>
+      <Cursor1Time time="0.005000 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+      <ValueColumnWidth column_width="80"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="3" />
    <wave_markers>
@@ -88,17 +88,17 @@
          <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
       </wvobject>
+      <wvobject fp_name="/TB/u_dut/u_uart/u_rx/frame_error" type="logic">
+         <obj_property name="ElementShortName">frame_error</obj_property>
+         <obj_property name="ObjectShortName">frame_error</obj_property>
+      </wvobject>
       <wvobject fp_name="/TB/u_dut/u_uart/u_rx/state" type="array">
          <obj_property name="ElementShortName">state[1:0]</obj_property>
          <obj_property name="ObjectShortName">state[1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TB/u_dut/u_uart/u_rx/tick_cnt" type="array">
-         <obj_property name="ElementShortName">tick_cnt[2:0]</obj_property>
-         <obj_property name="ObjectShortName">tick_cnt[2:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/u_rx/bit_cnt" type="array">
-         <obj_property name="ElementShortName">bit_cnt[3:0]</obj_property>
-         <obj_property name="ObjectShortName">bit_cnt[3:0]</obj_property>
+         <obj_property name="ElementShortName">tick_cnt[3:0]</obj_property>
+         <obj_property name="ObjectShortName">tick_cnt[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/TB/u_dut/u_uart/u_rx/shift_reg" type="array">
          <obj_property name="ElementShortName">shift_reg[7:0]</obj_property>

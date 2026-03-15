@@ -48,6 +48,7 @@
         .baud_osr_tick(baud_osr_tick),
         .rx           (uart_if.rx),
         .valid        (uart_if.rx_valid),
+        .frame_error  (uart_if.frame_error),
         .data_out     (uart_if.rx_data)
     );
 endmodule

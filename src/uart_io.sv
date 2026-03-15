@@ -11,6 +11,7 @@ interface uart_io #(
     logic tx_valid;
     logic tx_ready;
     logic rx_valid;
+    logic frame_error;
     logic [DATA_BITS-1:0] tx_data;
     logic [DATA_BITS-1:0] rx_data;
 
@@ -24,7 +25,8 @@ interface uart_io #(
         output tx,
         output tx_ready,
         output rx_data,
-        output rx_valid
+        output rx_valid,
+        output frame_error
     );
 
     // Host/controller
@@ -33,6 +35,7 @@ interface uart_io #(
         input rst_n,
         input rx_data,
         input rx_valid,
+        input frame_error,
         input tx_ready,
         output tx_data,
         output tx_valid
