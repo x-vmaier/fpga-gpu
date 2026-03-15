@@ -45,7 +45,10 @@
     );
 
     // Global reset
-    global_reset u_global_reset (
+    global_reset #(
+        .NUM_DOMAINS(2),
+        .SYNC_STAGES(2)
+    ) u_global_reset (
         .por_clk  (clk_osc),
         .clk_in   (clk_arr),
         .rst_n_out(rst_arr),
@@ -85,7 +88,9 @@
     // Display UART Rx data
     assign segment_data_in = {8'b0, uart_if.rx_data};
 
-    seven_segment_translator u_seven_seg (
+    seven_segment_translator #(
+        .REFRESH_BITS(17)
+    ) u_seven_seg (
         .clk             (clk_osc),
         .rst_n           (rst_arr[DOM_SYS]),
         .segment_data_in (segment_data_in),
@@ -96,7 +101,10 @@
     );
 
     // VGA display output
-    display_engine u_display_engine (
+    display_engine #(
+        .H_ACTIVE(640),
+        .V_ACTIVE(480)
+    ) u_display_engine (
         .clk     (clk_arr[DOM_VGA]),
         .rst_n   (rst_arr[DOM_VGA]),
         .vgaRed  (vgaRed),
