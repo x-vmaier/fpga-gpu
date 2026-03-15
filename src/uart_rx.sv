@@ -45,26 +45,24 @@
             if (baud_osr_tick) begin
                 case (state)
                     IDLE: begin
-                        tick_cnt <= '0;
-                        bit_cnt  <= '0;
-
                         // Falling edge translates to start bit
                         if (!rx) begin
                             state <= START;
-                            frame_error <= 1'b0;  // Remain assertion valid until next start bit
+                            frame_error <= 1'b0;  // Deassert at next start bit
                         end
                     end
 
                     START: begin
                         if (tick_cnt == SAMPLE_POINT) begin
-                            // Verify start bit is still low at bit center
+                            tick_cnt <= '0;  // Current position is at the bit center
+
+                            // Verify start bit is still low
                             if (!rx) begin
                                 // Confirmed start bit
-                                tick_cnt <= '0;  // Current position is at the bit center
-                                state    <= DATA;
+                                state <= DATA;
                             end else begin
                                 // Glitch happened if line went back high
-                                state <= IDLE;  // Return to IDLE
+                                state <= IDLE;
                             end
                         end else begin
                             tick_cnt <= tick_cnt + 1'b1;
@@ -81,7 +79,7 @@
                             shift_reg <= {rx, shift_reg[DATA_BITS-1:1]};
                             if (bit_cnt == DATA_BITS - 1) begin
                                 // All data bits are read
-                                bit_cnt <= '0;
+                                bit_cnt <= STOP_BITS - 1;
                                 state   <= STOP;
                             end else begin
                                 bit_cnt <= bit_cnt + 1'b1;
@@ -93,15 +91,24 @@
 
                     STOP: begin
                         if (tick_cnt == BAUD_OSR - 1) begin
-                            // Data only valid if stop bit is high
-                            if (rx) begin
-                                data_out <= shift_reg;
-                                valid <= 1'b1;
-                            end else begin
-                                frame_error <= 1'b1;
-                            end
                             tick_cnt <= '0;
-                            state    <= IDLE;
+
+                            // Verify stop bit is high
+                            if (!rx) begin
+                                // Abort on framing error
+                                frame_error <= 1'b1;
+                                bit_cnt     <= '0;
+                                state       <= IDLE;
+                            end else begin
+                                if (bit_cnt == '0) begin
+                                    // All stop bits received
+                                    data_out <= shift_reg;
+                                    valid    <= 1'b1;
+                                    state    <= IDLE;
+                                end else begin
+                                    bit_cnt <= bit_cnt - 1'b1;
+                                end
+                            end
                         end else begin
                             tick_cnt <= tick_cnt + 1'b1;
                         end

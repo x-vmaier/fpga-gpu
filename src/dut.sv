@@ -73,7 +73,14 @@
     assign RsTx = uart_if.tx;
 
     // UART module
-    uart u_uart (.uart_if(uart_if));
+    uart #(
+        .BAUD_RATE(921_600),
+        .BAUD_OSR (8),
+        .DATA_BITS(8),
+        .STOP_BITS(1)
+    ) u_uart (
+        .uart_if(uart_if)
+    );
 
     // Display UART Rx data
     assign segment_data_in = {8'b0, uart_if.rx_data};
