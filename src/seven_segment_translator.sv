@@ -30,7 +30,7 @@
     logic [3:0] current_digit;
     logic current_dp;
 
-    assign current_digit = segment_data_in[(digit_index<<2)+:4];
+    assign current_digit = segment_data_in[digit_index*4+:4];
     assign current_dp = segment_point_in[digit_index];
 
     // Active-low anode and decimal-point outputs
