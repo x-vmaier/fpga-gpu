@@ -45,10 +45,10 @@
     );
 
     // Global reset
-    global_reset #(
+    reset_sync #(
         .NUM_DOMAINS(2),
         .SYNC_STAGES(2)
-    ) u_global_reset (
+    ) u_reset_sync (
         .por_clk  (clk_osc),
         .clk_in   (clk_arr),
         .rst_n_out(rst_arr),
@@ -109,7 +109,7 @@
     // Display UART Rx data
     assign segment_data_in = {8'b0, uart_if.rx_data};
 
-    seven_segment_translator #(
+    seven_seg_driver #(
         .REFRESH_BITS(17)
     ) u_seven_seg (
         .clk             (clk_osc),

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-(* keep_hierarchy = "yes" *) module seven_segment_translator #(
+(* keep_hierarchy = "yes" *) module seven_seg_driver #(
     parameter integer REFRESH_BITS = 17
 ) (
     input logic clk,
