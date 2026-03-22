@@ -27,13 +27,26 @@
         .H_OUT(H_ACTIVE),
         .V_OUT(V_ACTIVE)
     ) u_nearest_2x (
-        .*
+        .clk   (clk),
+        .rst_n (rst_n),
+        .x_dest(x_dest),
+        .y_dest(y_dest),
+        .addr  (addr)
     );
 
     vga_controller #(
         .H_ACTIVE(H_ACTIVE),
         .V_ACTIVE(V_ACTIVE)
     ) u_vga_controller (
-        .*
+        .clk       (clk),
+        .rst_n     (rst_n),
+        .pixel_data(pixel_data),
+        .x_dest    (x_dest),
+        .y_dest    (y_dest),
+        .vgaRed    (vgaRed),
+        .vgaGreen  (vgaGreen),
+        .vgaBlue   (vgaBlue),
+        .Hsync     (Hsync),
+        .Vsync     (Vsync)
     );
 endmodule

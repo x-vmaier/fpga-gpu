@@ -19,8 +19,19 @@ module TB;
 
     // DUT Instance
     dut u_dut (
-        .clk_osc(clk),
-        .*
+        .clk_osc (clk),
+        .sw      (sw),
+        .RsRx    (RsRx),
+        .RsTx    (RsTx),
+        .Hsync   (Hsync),
+        .Vsync   (Vsync),
+        .vgaRed  (vgaRed),
+        .vgaGreen(vgaGreen),
+        .vgaBlue (vgaBlue),
+        .LED     (LED),
+        .seg     (seg),
+        .an      (an),
+        .dp      (dp)
     );
 
     // Instantiate tests
