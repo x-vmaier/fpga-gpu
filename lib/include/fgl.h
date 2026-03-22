@@ -11,8 +11,6 @@ extern "C"
 	FglContext *fglCreateContext(void);
 	void fglDestroyContext(FglContext *ctx);
 
-	void fglClear(FglContext *ctx);
-
 #ifdef __cplusplus
 }
 #endif
