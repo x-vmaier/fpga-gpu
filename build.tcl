@@ -137,7 +137,6 @@ set_property -dict {
 } [get_ips clk_wiz_0]
 
 generate_target all [get_ips clk_wiz_0]
-set_msg_config -id {Netlist 29-345} -new_severity INFO
 
 create_ip \
     -name blk_mem_gen \
