@@ -20,7 +20,7 @@
     assign h_src = x_dest >> 1;
     assign v_src = y_dest >> 1;
 
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if (!rst_n) begin
             addr <= '0;
         end else begin
