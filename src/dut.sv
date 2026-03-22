@@ -98,7 +98,7 @@
 
     // UART module
     uart #(
-        .BAUD_RATE(921_600),
+        .BAUD_RATE(8_000_000),
         .BAUD_OSR (8),
         .DATA_BITS(8),
         .STOP_BITS(1)
