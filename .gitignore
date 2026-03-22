@@ -1,5 +1,8 @@
 # Vivado Project
 build/
 dfx_runtime.txt
-*_preview.png
 *.coe
+
+# CMake Project
+out/
+third_party/

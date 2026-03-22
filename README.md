@@ -1,6 +1,8 @@
 # FPGA GPU
 
-Fixed-function graphics pipeline with a UART interface, implemented on the Basys 3 FPGA board.
+Fixed-function graphics pipeline with a UART interface, implemented on the [Basys 3](https://digilent.com/reference/programmable-logic/basys-3/start) FPGA board.
+
+For library build instructions, see [lib/README.md](lib/README.md).
 
 ## Prerequisites
 
@@ -10,14 +12,20 @@ Fixed-function graphics pipeline with a UART interface, implemented on the Basys
 ## Build
 
 1. Clone this repo:
+
    ```bash
    git clone https://github.com/x-vmaier/fpga-gpu.git
    cd fpga-gpu
    ```
-2. Generate a `.coe` file from an image using the script in `/scripts`:
+
+2. Generate a `.coe` file from an image using the script in `scripts/`:
+
    ```bash
    python scripts/img2coe.py <input_image> -o resources/image.coe
    ```
+
+   > The output path `resources/image.coe` is what the project expects by default. Do not change it unless you also update the block memory IP configuration in Vivado.
+
 3. Open Vivado and run the `build.tcl` Tcl script.
 
 ## Program Device
