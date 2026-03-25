@@ -42,7 +42,7 @@
                 TB_sim_mode = sim_mode; \
                 $display("\n========================================== %s ==========================================", title); \
                 $display("Info:  Time: %t ns \tTB_TEST_START \tSim-Mode: %s", $time, TB_sim_mode ? "true" : "false"); \
-                `wait_for_posedge(TB.u_dut.pll_locked, 10us) \
+                `wait_for_posedge(TB.u_gpu.pll_locked, 10us) \
                 $display("Info:  Time: %t ns \tPLL locked in successfully", $time); \
 
 /*

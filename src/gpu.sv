@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-(* keep_hierarchy = "yes" *) module dut (
+(* keep_hierarchy = "yes" *) module gpu (
     input logic clk_osc,
     input logic [15:0] sw,
     input logic RsRx,

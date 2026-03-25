@@ -101,7 +101,7 @@ foreach f $src_sv_files {
 
 set_property -dict {
     dataflow_viewer_settings {min_width=16}
-    top                      dut
+    top                      gpu
     top_auto_set             0
 } $SRC_OBJ
 
@@ -354,4 +354,4 @@ if {[get_property PROGRESS [get_runs impl_1]] != "100%"} {
     error "ERROR: Implementation failed."
 }
 
-puts "INFO: Done. Bitstream: ${PROJ_DIR}/${PROJECT_NAME}.runs/impl_1/dut.bit"
+puts "INFO: Done. Bitstream: ${PROJ_DIR}/${PROJECT_NAME}.runs/impl_1/gpu.bit"

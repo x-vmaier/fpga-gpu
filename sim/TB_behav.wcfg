@@ -6,44 +6,44 @@
       <db_ref path="TB_behav.wdb" id="1">
          <top_modules>
             <top_module name="TB" />
-            <top_module name="\$unit_baud_gen_sv_4166394475 " />
+            <top_module name="\$unit_baud_gen_sv_4030510665 " />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="2,285.414157 us"></ZoomEndTime>
-      <Cursor1Time time="2,285.414156 us"></Cursor1Time>
+      <ZoomEndTime time="830.915963 us"></ZoomEndTime>
+      <Cursor1Time time="122.632601 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="340"></NameColumnWidth>
-      <ValueColumnWidth column_width="75"></ValueColumnWidth>
+      <NameColumnWidth column_width="338"></NameColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="3" />
+   <WVObjectSize size="4" />
    <wave_markers>
       <marker time="32326664828" label="" />
    </wave_markers>
    <wvobject fp_name="group94" type="group">
       <obj_property name="label">reset_sync</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <wvobject fp_name="/TB/u_dut/u_reset_sync/enable" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_reset_sync/enable" type="logic">
          <obj_property name="ElementShortName">enable</obj_property>
          <obj_property name="ObjectShortName">enable</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_reset_sync/por_clk" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_reset_sync/por_clk" type="logic">
          <obj_property name="ElementShortName">por_clk</obj_property>
          <obj_property name="ObjectShortName">por_clk</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_reset_sync/por_cnt" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_reset_sync/por_cnt" type="array">
          <obj_property name="ElementShortName">por_cnt[3:0]</obj_property>
          <obj_property name="ObjectShortName">por_cnt[3:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_reset_sync/clk_in" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_reset_sync/clk_in" type="array">
          <obj_property name="ElementShortName">clk_in[1:0]</obj_property>
          <obj_property name="ObjectShortName">clk_in[1:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_reset_sync/rst_n_out" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_reset_sync/rst_n_out" type="array">
          <obj_property name="ElementShortName">rst_n_out[1:0]</obj_property>
          <obj_property name="ObjectShortName">rst_n_out[1:0]</obj_property>
       </wvobject>
@@ -52,43 +52,43 @@
       <obj_property name="label">uart</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/TB/u_dut/u_uart/u_baud_gen/baud_tick" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/u_baud_gen/baud_tick" type="logic">
          <obj_property name="ElementShortName">baud_tick</obj_property>
          <obj_property name="ObjectShortName">baud_tick</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/u_baud_gen/baud_osr_tick" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/u_baud_gen/baud_osr_tick" type="logic">
          <obj_property name="ElementShortName">baud_osr_tick</obj_property>
          <obj_property name="ObjectShortName">baud_osr_tick</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/tx" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/tx" type="logic">
          <obj_property name="ElementShortName">tx</obj_property>
          <obj_property name="ObjectShortName">tx</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/rx" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/rx" type="logic">
          <obj_property name="ElementShortName">rx</obj_property>
          <obj_property name="ObjectShortName">rx</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/tx_valid" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/tx_valid" type="logic">
          <obj_property name="ElementShortName">tx_valid</obj_property>
          <obj_property name="ObjectShortName">tx_valid</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/tx_ready" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/tx_ready" type="logic">
          <obj_property name="ElementShortName">tx_ready</obj_property>
          <obj_property name="ObjectShortName">tx_ready</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/rx_valid" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/rx_valid" type="logic">
          <obj_property name="ElementShortName">rx_valid</obj_property>
          <obj_property name="ObjectShortName">rx_valid</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/tx_data" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/tx_data" type="array">
          <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/uart_if/rx_data" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_uart/uart_if/rx_data" type="array">
          <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_uart/u_rx/frame_error" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_uart/u_rx/frame_error" type="logic">
          <obj_property name="ElementShortName">frame_error</obj_property>
          <obj_property name="ObjectShortName">frame_error</obj_property>
       </wvobject>
@@ -97,53 +97,82 @@
       <obj_property name="label">vga</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/clk" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/pixel_data" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/pixel_data" type="array">
          <obj_property name="ElementShortName">pixel_data[11:0]</obj_property>
          <obj_property name="ObjectShortName">pixel_data[11:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/x_dest" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/x_dest" type="array">
          <obj_property name="ElementShortName">x_dest[9:0]</obj_property>
          <obj_property name="ObjectShortName">x_dest[9:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/y_dest" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/y_dest" type="array">
          <obj_property name="ElementShortName">y_dest[8:0]</obj_property>
          <obj_property name="ObjectShortName">y_dest[8:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/vgaRed" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/vgaRed" type="array">
          <obj_property name="ElementShortName">vgaRed[3:0]</obj_property>
          <obj_property name="ObjectShortName">vgaRed[3:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/vgaGreen" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/vgaGreen" type="array">
          <obj_property name="ElementShortName">vgaGreen[3:0]</obj_property>
          <obj_property name="ObjectShortName">vgaGreen[3:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/vgaBlue" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/vgaBlue" type="array">
          <obj_property name="ElementShortName">vgaBlue[3:0]</obj_property>
          <obj_property name="ObjectShortName">vgaBlue[3:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/display_active" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/display_active" type="logic">
          <obj_property name="ElementShortName">display_active</obj_property>
          <obj_property name="ObjectShortName">display_active</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/Hsync" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/Hsync" type="logic">
          <obj_property name="ElementShortName">Hsync</obj_property>
          <obj_property name="ObjectShortName">Hsync</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/Vsync" type="logic">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/Vsync" type="logic">
          <obj_property name="ElementShortName">Vsync</obj_property>
          <obj_property name="ObjectShortName">Vsync</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/Hcnt" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/Hcnt" type="array">
          <obj_property name="ElementShortName">Hcnt[9:0]</obj_property>
          <obj_property name="ObjectShortName">Hcnt[9:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/TB/u_dut/u_display_engine/u_vga_controller/Vcnt" type="array">
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_vga_controller/Vcnt" type="array">
          <obj_property name="ElementShortName">Vcnt[9:0]</obj_property>
          <obj_property name="ObjectShortName">Vcnt[9:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group31" type="group">
+      <obj_property name="label">upscaler</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_nearest_2x/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_nearest_2x/x_dest" type="array">
+         <obj_property name="ElementShortName">x_dest[9:0]</obj_property>
+         <obj_property name="ObjectShortName">x_dest[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_nearest_2x/y_dest" type="array">
+         <obj_property name="ElementShortName">y_dest[8:0]</obj_property>
+         <obj_property name="ObjectShortName">y_dest[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_nearest_2x/h_src" type="array">
+         <obj_property name="ElementShortName">h_src[8:0]</obj_property>
+         <obj_property name="ObjectShortName">h_src[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_nearest_2x/v_src" type="array">
+         <obj_property name="ElementShortName">v_src[7:0]</obj_property>
+         <obj_property name="ObjectShortName">v_src[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/TB/u_gpu/u_display_engine/u_nearest_2x/addr" type="array">
+         <obj_property name="ElementShortName">addr[16:0]</obj_property>
+         <obj_property name="ObjectShortName">addr[16:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

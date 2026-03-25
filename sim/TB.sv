@@ -17,8 +17,8 @@ module TB;
     logic [3:0] an;
     logic dp;
 
-    // DUT Instance
-    dut u_dut (
+    // GPU Instance
+    gpu u_gpu (
         .clk_osc (clk),
         .sw      (sw),
         .RsRx    (RsRx),

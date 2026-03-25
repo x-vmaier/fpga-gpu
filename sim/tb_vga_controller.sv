@@ -19,11 +19,11 @@ program tb_vga_controller ();
     `TB_TEST_START("VGA Controller", 1)
 
     `TB_TEST_PART("Hsync pulse width and period")
-        `wait_for_negedge(TB.u_dut.Hsync, 2ms)
+        `wait_for_negedge(TB.u_gpu.Hsync, 2ms)
         t0 = $time;
-        `wait_for_posedge(TB.u_dut.Hsync, 10ms)
+        `wait_for_posedge(TB.u_gpu.Hsync, 10ms)
         t1 = $time;
-        `wait_for_negedge(TB.u_dut.Hsync, 10ms)
+        `wait_for_negedge(TB.u_gpu.Hsync, 10ms)
         t2 = $time;
         `Check_blur(t1 - t0, H_SYNC * CLK_PERIOD_PS / 1000, 2,
             ("Hsync width: got %0t ns expected ~%0d ns", t1-t0, H_SYNC * CLK_PERIOD_PS / 1000))
@@ -33,21 +33,21 @@ program tb_vga_controller ();
     `TB_TEST_PART("display_active region")
 
         // Should be inactive: Hcnt is in the front-porch, before sync
-        force TB.u_dut.u_display_engine.u_vga_controller.Hcnt = H_SYNC_START - 1;
-        force TB.u_dut.u_display_engine.u_vga_controller.Vcnt = '0;
+        force TB.u_gpu.u_display_engine.u_vga_controller.Hcnt = H_SYNC_START - 1;
+        force TB.u_gpu.u_display_engine.u_vga_controller.Vcnt = '0;
         @(posedge TB.clk);
-        `Check(TB.u_dut.u_display_engine.u_vga_controller.display_active == 1'b0, ("display_active should be 0 in front-porch"))
-        release TB.u_dut.u_display_engine.u_vga_controller.Hcnt;
-        release TB.u_dut.u_display_engine.u_vga_controller.Vcnt;
+        `Check(TB.u_gpu.u_display_engine.u_vga_controller.display_active == 1'b0, ("display_active should be 0 in front-porch"))
+        release TB.u_gpu.u_display_engine.u_vga_controller.Hcnt;
+        release TB.u_gpu.u_display_engine.u_vga_controller.Vcnt;
         repeat(4) @(posedge TB.clk);
 
         // Should be active: first active pixel
-        force TB.u_dut.u_display_engine.u_vga_controller.Hcnt = H_ACTIVE_START;
-        force TB.u_dut.u_display_engine.u_vga_controller.Vcnt = V_ACTIVE_START;
+        force TB.u_gpu.u_display_engine.u_vga_controller.Hcnt = H_ACTIVE_START;
+        force TB.u_gpu.u_display_engine.u_vga_controller.Vcnt = V_ACTIVE_START;
         @(posedge TB.clk);
-        `Check(TB.u_dut.u_display_engine.u_vga_controller.display_active == 1'b1, ("display_active should be 1 at first active pixel"))
-        release TB.u_dut.u_display_engine.u_vga_controller.Hcnt;
-        release TB.u_dut.u_display_engine.u_vga_controller.Vcnt;
+        `Check(TB.u_gpu.u_display_engine.u_vga_controller.display_active == 1'b1, ("display_active should be 1 at first active pixel"))
+        release TB.u_gpu.u_display_engine.u_vga_controller.Hcnt;
+        release TB.u_gpu.u_display_engine.u_vga_controller.Vcnt;
         repeat(4) @(posedge TB.clk);
 
     `TB_TEST_END(70ms)
