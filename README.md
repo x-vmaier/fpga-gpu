@@ -26,7 +26,9 @@ For library build instructions, see [lib/README.md](lib/README.md).
 
    > The output path `resources/image.coe` is what the project expects by default. Do not change it unless you also update the block memory IP configuration in Vivado.
 
-3. Open Vivado and run the `build.tcl` Tcl script.
+3. Open Vivado and run the `create.tcl` Tcl script.
+
+4. Synthesize and implement by running `build.tcl`.
 
 ## Program Device
 
